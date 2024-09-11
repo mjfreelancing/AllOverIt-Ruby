@@ -1,0 +1,13 @@
+module Alloverit
+  module Patterns
+    module Specification
+      class OrSpecification
+        @left: Specification
+        @right: Specification
+
+        def initialize: (Specification left, Specification right) -> OrSpecification
+        def satisfied_by?: (untyped candidate) -> bool
+      end
+    end
+  end
+end

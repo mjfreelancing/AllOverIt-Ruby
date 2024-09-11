@@ -1,0 +1,7 @@
+module Alloverit
+  module Patterns
+    module Specification
+      VERSION: String
+    end
+  end
+end

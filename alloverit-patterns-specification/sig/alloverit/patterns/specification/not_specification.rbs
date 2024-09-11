@@ -1,0 +1,12 @@
+module Alloverit
+  module Patterns
+    module Specification
+      class NotSpecification
+        @specification: Specification
+
+        def initialize: (Specification specification) -> NotSpecification
+        def satisfied_by?: (untyped candidate) -> bool
+      end
+    end
+  end
+end
