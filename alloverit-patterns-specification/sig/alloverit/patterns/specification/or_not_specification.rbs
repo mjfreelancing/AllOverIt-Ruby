@@ -6,6 +6,7 @@ module Alloverit
         @right: Specification
 
         def initialize: (Specification left, Specification right) -> OrNotSpecification
+
         def satisfied_by?: (untyped candidate) -> bool
       end
     end

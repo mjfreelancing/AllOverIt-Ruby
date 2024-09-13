@@ -11,6 +11,10 @@ RuboCop::RakeTask.new
 
 task default: %i[spec rubocop]
 
-task :run_demo do
-  ruby "demo/demo.rb"
+task :run_demo1 do
+  ruby "demos/demo1/demo1.rb"
+end
+
+task :run_demo2 do
+  ruby "demos/demo2/demo2.rb"
 end

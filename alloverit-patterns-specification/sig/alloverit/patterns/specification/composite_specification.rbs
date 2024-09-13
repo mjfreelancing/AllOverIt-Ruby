@@ -1,0 +1,17 @@
+module Alloverit
+  module Patterns
+    module Specification
+      class CompositeSpecification
+        def self.and: (Specification other) -> AndSpecification
+
+        def self.and_not: (Specification other) -> AndNotSpecification
+
+        def self.or: (Specification other) -> OrSpecification
+
+        def self.or_not: (Specification other) -> OrNotSpecification
+
+        def self.not: -> NotSpecification
+      end
+    end
+  end
+end

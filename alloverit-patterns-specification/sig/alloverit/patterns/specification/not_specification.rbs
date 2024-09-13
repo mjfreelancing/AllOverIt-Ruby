@@ -5,6 +5,7 @@ module Alloverit
         @specification: Specification
 
         def initialize: (Specification specification) -> NotSpecification
+
         def satisfied_by?: (untyped candidate) -> bool
       end
     end

@@ -22,24 +22,28 @@ module Alloverit
       # Combines the current specification with another specification using a logical AND. Returns a new
       # `AndSpecification` object that represents the combined criteria.
       def and(other)
+        other = other.new if other.is_a?(Class) # If a class is passed, instantiate it
         AndSpecification.new(self, other)
       end
 
       # Combines the current specification with another specification using a logical AND NOT. Returns a new
       # `AndNotSpecification` object that represents the combined criteria.
       def and_not(other)
+        other = other.new if other.is_a?(Class) # If a class is passed, instantiate it
         AndNotSpecification.new(self, other)
       end
 
       # Combines the current specification with another specification using a logical OR. Returns a new
       # `OrSpecification` object that represents the combined criteria.
       def or(other)
+        other = other.new if other.is_a?(Class) # If a class is passed, instantiate it
         OrSpecification.new(self, other)
       end
 
       # Combines the current specification with another specification using a logical OR NOT. Returns a new
       # `OrNotSpecification` object that represents the combined criteria.
       def or_not(other)
+        other = other.new if other.is_a?(Class) # If a class is passed, instantiate it
         OrNotSpecification.new(self, other)
       end
 
