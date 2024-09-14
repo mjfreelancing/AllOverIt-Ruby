@@ -6,93 +6,95 @@ require_relative "../../../../lib/alloverit/patterns/specification/and_specifica
 module AllOverIt
   module Patterns
     module Specification
-      Specification = Alloverit::Patterns::Specification
+      module SpecificationFixture
+        Specification = Alloverit::Patterns::Specification
 
-      class DummyBadImplementationSpecification
-        include Specification
-      end
-
-      class DummySpecification
-        include Specification
-
-        def satisfied_by?(candidate)
-          true
+        class DummyBadImplementationSpecification
+          include Specification
         end
-      end
 
-      AndSpecification = Alloverit::Patterns::Specification::AndSpecification
-      AndNotSpecification = Alloverit::Patterns::Specification::AndNotSpecification
-      OrSpecification = Alloverit::Patterns::Specification::OrSpecification
-      OrNotSpecification = Alloverit::Patterns::Specification::OrNotSpecification
-      NotSpecification = Alloverit::Patterns::Specification::NotSpecification
+        class DummySpecification
+          include Specification
 
-      RSpec.describe Alloverit::Patterns::Specification do
-        let(:spec) { DummySpecification.new }
-
-        describe "#satisfied_by?" do
-          let(:spec) { DummyBadImplementationSpecification.new }
-
-          it "raises NotImplementedError when #satisfied_by? not implemented" do
-            expect { spec.satisfied_by?(double) }.to raise_error(NotImplementedError, "You must implement #satisfied_by?")
+          def satisfied_by?(candidate)
+            true
           end
         end
 
-        describe "#and" do
-          it "returns an AndSpecification when provided another specification instance" do
-            other = DummySpecification.new
-            result = spec.and(other)
-            expect(result).to be_an_instance_of(AndSpecification)
+        AndSpecification = Alloverit::Patterns::Specification::AndSpecification
+        AndNotSpecification = Alloverit::Patterns::Specification::AndNotSpecification
+        OrSpecification = Alloverit::Patterns::Specification::OrSpecification
+        OrNotSpecification = Alloverit::Patterns::Specification::OrNotSpecification
+        NotSpecification = Alloverit::Patterns::Specification::NotSpecification
+
+        RSpec.describe Alloverit::Patterns::Specification do
+          let(:spec) { DummySpecification.new }
+
+          describe "#satisfied_by?" do
+            let(:spec) { DummyBadImplementationSpecification.new }
+
+            it "raises NotImplementedError when #satisfied_by? not implemented" do
+              expect { spec.satisfied_by?(double) }.to raise_error(NotImplementedError, "You must implement #satisfied_by?")
+            end
           end
 
-          it "returns an AndSpecification when provided another specification class" do
-            result = spec.and(DummySpecification)
-            expect(result).to be_an_instance_of(AndSpecification)
-          end
-        end
+          describe "#and" do
+            it "returns an AndSpecification when provided another specification instance" do
+              other = DummySpecification.new
+              result = spec.and(other)
+              expect(result).to be_an_instance_of(AndSpecification)
+            end
 
-        describe "#and_not" do
-          it "returns an AndNotSpecification when provided another specification instance" do
-            other = DummySpecification.new
-            result = spec.and_not(other)
-            expect(result).to be_an_instance_of(AndNotSpecification)
-          end
-
-          it "returns an AndNotSpecification when provided another specification class" do
-            result = spec.and_not(DummySpecification)
-            expect(result).to be_an_instance_of(AndNotSpecification)
-          end
-        end
-
-        describe "#or" do
-          it "returns an OrSpecification when provided another specification instance" do
-            other = DummySpecification.new
-            result = spec.or(other)
-            expect(result).to be_an_instance_of(OrSpecification)
+            it "returns an AndSpecification when provided another specification class" do
+              result = spec.and(DummySpecification)
+              expect(result).to be_an_instance_of(AndSpecification)
+            end
           end
 
-          it "returns an OrSpecification when provided another specification class" do
-            result = spec.or(DummySpecification)
-            expect(result).to be_an_instance_of(OrSpecification)
-          end
-        end
+          describe "#and_not" do
+            it "returns an AndNotSpecification when provided another specification instance" do
+              other = DummySpecification.new
+              result = spec.and_not(other)
+              expect(result).to be_an_instance_of(AndNotSpecification)
+            end
 
-        describe "#or_not" do
-          it "returns an OrNotSpecification when provided another specification instance" do
-            other = DummySpecification.new
-            result = spec.or_not(other)
-            expect(result).to be_an_instance_of(OrNotSpecification)
+            it "returns an AndNotSpecification when provided another specification class" do
+              result = spec.and_not(DummySpecification)
+              expect(result).to be_an_instance_of(AndNotSpecification)
+            end
           end
 
-          it "returns an OrNotSpecification when provided another specification class" do
-            result = spec.or_not(DummySpecification)
-            expect(result).to be_an_instance_of(OrNotSpecification)
-          end
-        end
+          describe "#or" do
+            it "returns an OrSpecification when provided another specification instance" do
+              other = DummySpecification.new
+              result = spec.or(other)
+              expect(result).to be_an_instance_of(OrSpecification)
+            end
 
-        describe "#not" do
-          it "returns a NotSpecification instance" do
-            result = spec.not
-            expect(result).to be_an_instance_of(NotSpecification)
+            it "returns an OrSpecification when provided another specification class" do
+              result = spec.or(DummySpecification)
+              expect(result).to be_an_instance_of(OrSpecification)
+            end
+          end
+
+          describe "#or_not" do
+            it "returns an OrNotSpecification when provided another specification instance" do
+              other = DummySpecification.new
+              result = spec.or_not(other)
+              expect(result).to be_an_instance_of(OrNotSpecification)
+            end
+
+            it "returns an OrNotSpecification when provided another specification class" do
+              result = spec.or_not(DummySpecification)
+              expect(result).to be_an_instance_of(OrNotSpecification)
+            end
+          end
+
+          describe "#not" do
+            it "returns a NotSpecification instance" do
+              result = spec.not
+              expect(result).to be_an_instance_of(NotSpecification)
+            end
           end
         end
       end

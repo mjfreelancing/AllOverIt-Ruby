@@ -9,7 +9,7 @@ require_relative "../../../../lib/alloverit/patterns/specification/and_not_speci
 module AllOverIt
   module Patterns
     module Specification
-      module AndNotSpecification
+      module AndNotSpecificationFixture
         CompositeSpecification = Alloverit::Patterns::Specification::CompositeSpecification
 
         class TrueSpecification < CompositeSpecification

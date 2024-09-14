@@ -9,7 +9,7 @@ require_relative "../../../../lib/alloverit/patterns/specification/or_not_specif
 module AllOverIt
   module Patterns
     module Specification
-      module OrNotSpecification
+      module OrNotSpecificationFixture
         CompositeSpecification = Alloverit::Patterns::Specification::CompositeSpecification
 
         class TrueSpecification < CompositeSpecification
