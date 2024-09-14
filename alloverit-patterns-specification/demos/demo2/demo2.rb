@@ -22,7 +22,7 @@ module Demo2
   mexico_or_india_spec = HasOriginSpec.new("mexico").or(HasOriginSpec.new("india"))
   combined_spec = IsMildSpec.or(not_green_spec.and(mexico_or_india_spec))
 
-  filtered_chillis = chilli_varieties.select { |chilli| combined_spec.satisfied_by?(chilli)}
+  filtered_chillis = chilli_varieties.select { |chilli| combined_spec.satisfied_by?(chilli) }
 
   filtered_chillis.each do |chilli|
     puts "Name: #{chilli.name}, Origin: #{chilli.origin}, Colors: #{chilli.colors.join(', ')}, Scoville Range: #{chilli.scoville_range}"
