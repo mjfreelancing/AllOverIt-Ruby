@@ -1,4 +1,4 @@
-require_relative "../../../lib/alloverit/patterns/specification/specification"
+require_relative "../../../lib/alloverit/patterns/specification"
 require_relative "../../../lib/alloverit/patterns/specification/composite_specification"
 
 module Demo2

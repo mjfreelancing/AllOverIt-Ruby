@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "specification"
+require_relative "../specification"
 
 module Alloverit
   module Patterns

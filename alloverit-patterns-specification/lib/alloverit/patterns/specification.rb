@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "and_specification"
-require_relative "and_not_specification"
-require_relative "or_specification"
-require_relative "or_not_specification"
-require_relative "not_specification"
+require_relative "specification/and_specification"
+require_relative "specification/and_not_specification"
+require_relative "specification/or_specification"
+require_relative "specification/or_not_specification"
+require_relative "specification/not_specification"
 
 module Alloverit
   module Patterns
