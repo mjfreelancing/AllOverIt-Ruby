@@ -11,6 +11,14 @@ RuboCop::RakeTask.new
 
 task default: %i[spec rubocop]
 
+task :tests do
+  sh "bundle exec rspec"
+end
+
+task :tests_verbose do
+  sh "bundle exec rspec --format documentation"
+end
+
 task :run_demo1 do
   ruby "demos/demo1/demo1.rb"
 end

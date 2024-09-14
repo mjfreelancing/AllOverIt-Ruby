@@ -5,9 +5,9 @@ module Alloverit
         @left: Specification
         @right: Specification
 
-        def initialize: (Specification left, Specification right) -> OrSpecification
+        def initialize: (left: Specification, right: Specification) -> OrSpecification
 
-        def satisfied_by?: (untyped candidate) -> bool
+        def satisfied_by?: (candidate: untyped) -> bool
       end
     end
   end

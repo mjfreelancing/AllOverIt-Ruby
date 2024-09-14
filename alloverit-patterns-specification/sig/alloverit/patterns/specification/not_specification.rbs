@@ -4,9 +4,9 @@ module Alloverit
       class NotSpecification
         @specification: Specification
 
-        def initialize: (Specification specification) -> NotSpecification
+        def initialize: (specification: Specification) -> NotSpecification
 
-        def satisfied_by?: (untyped candidate) -> bool
+        def satisfied_by?: (candidate: untyped) -> bool
       end
     end
   end

@@ -8,6 +8,7 @@ module Alloverit
       class NotSpecification < CompositeSpecification
         def initialize(specification)
           super()
+
           @specification = specification
         end
 

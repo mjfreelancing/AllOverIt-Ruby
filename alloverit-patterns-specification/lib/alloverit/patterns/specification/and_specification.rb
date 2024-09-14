@@ -8,6 +8,7 @@ module Alloverit
       class AndSpecification < CompositeSpecification
         def initialize(left, right)
           super()
+
           @left = left
           @right = right
         end
