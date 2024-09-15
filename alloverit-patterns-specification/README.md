@@ -1,19 +1,18 @@
 # Alloverit::Patterns::Specification
 
 The Specification pattern is a design pattern used to encapsulate business logic and validation rules into reusable
-and composable components. It allows you to separate the logic for decision-making from the entities or classes that
-use the decision-making logic. This pattern is particularly useful for building complex queries and validation rules
-in a flexible and maintainable manner.
+and composable components. It separates the logic for decision-making from the entities or classes that use it,
+enabling flexible and maintainable development of complex ad-hoc search queries and validation rules.
 
 ![Specification Pattern](assets/uml.png)
 
-In this gem, the Specification pattern is implemented through the `Alloverit::Patterns::Specification` module.
+A specification represents a business rule created by combining units of business logic using boolean logic operations.
+Each unit of logic is implemented as a concrete subclass of `CompositeSpecification`. This base class provides a common
+interface for combining and evaluating specifications through logical operations such as `and`, `and_not`, `or`,
+`or_not` and `not`.
 
-`CompositeSpecification` serves as the base class from which all specifications derive. It provides the interface for
-combining and evaluating specifications using logical operations such as `and`, `and_not`, `or`, `or_not` and `not`.
-
-This gem supports flexible composition, allowing you to combine specifications through both class and instance-level
-operations.
+In this gem, the Specification pattern is implemented through the `Alloverit::Patterns::Specification` module, which
+supports flexible composition of specifications at both class and instance levels.
 
 Refer to the [Usage](#usage) section below for details on how to use this gem in your application.
 
