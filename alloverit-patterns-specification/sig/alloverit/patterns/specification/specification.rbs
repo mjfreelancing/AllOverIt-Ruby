@@ -5,15 +5,15 @@ module Alloverit
     module Specification
       def satisfied_by?: (candidate: untyped) -> bool
 
-      def and: (other: Specification | [class, Specification]) -> AndSpecification
+      def and: (other: Specification | [class, Specification]) -> Specification
 
-      def and_not: (other: Specification | [class, Specification]) -> AndNotSpecification
+      def and_not: (other: Specification | [class, Specification]) -> Specification
 
-      def or: (other: Specification | [class, Specification]) -> OrSpecification
+      def or: (other: Specification | [class, Specification]) -> Specification
 
-      def or_not: (other: Specification | [class, Specification]) -> OrNotSpecification
+      def or_not: (other: Specification | [class, Specification]) -> Specification
 
-      def not: -> NotSpecification
+      def not: -> Specification
     end
   end
 end

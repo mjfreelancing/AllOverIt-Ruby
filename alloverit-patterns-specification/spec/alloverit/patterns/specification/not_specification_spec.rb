@@ -2,7 +2,7 @@
 
 require "rspec"
 
-require_relative "../../../../lib/alloverit/patterns/specification/specification"
+require_relative "../../../../lib/alloverit/patterns/specification"
 require_relative "../../../../lib/alloverit/patterns/specification/composite_specification"
 require_relative "../../../../lib/alloverit/patterns/specification/not_specification"
 
@@ -28,6 +28,12 @@ module AllOverIt
           let(:true_spec) { TrueSpecification.new }
           let(:false_spec) { FalseSpecification.new }
           let(:candidate) { "any candidate" }
+
+          describe "inheritance hierarchy" do
+            it 'inherits from CompositeSpecification' do
+              expect(Alloverit::Patterns::Specification::NotSpecification).to be < Alloverit::Patterns::Specification::CompositeSpecification
+            end
+          end
 
           describe "#satisfied_by?" do
             it "returns true if the specification is not satisfied" do

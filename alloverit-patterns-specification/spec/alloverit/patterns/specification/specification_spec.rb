@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../../../../lib/alloverit/patterns/specification/specification"
+require_relative "../../../../lib/alloverit/patterns/specification"
 require_relative "../../../../lib/alloverit/patterns/specification/and_specification"
 
 module AllOverIt
