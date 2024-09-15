@@ -1,14 +1,9 @@
 # frozen_string_literal: true
 
-require_relative "../../../../lib/alloverit/patterns/specification"
-require_relative "../../../../lib/alloverit/patterns/specification/and_specification"
-
-module AllOverIt
+module Alloverit
   module Patterns
     module Specification
       module SpecificationFixture
-        Specification = Alloverit::Patterns::Specification
-
         class DummyBadImplementationSpecification
           include Specification
         end
@@ -21,20 +16,16 @@ module AllOverIt
           end
         end
 
-        AndSpecification = Alloverit::Patterns::Specification::AndSpecification
-        AndNotSpecification = Alloverit::Patterns::Specification::AndNotSpecification
-        OrSpecification = Alloverit::Patterns::Specification::OrSpecification
-        OrNotSpecification = Alloverit::Patterns::Specification::OrNotSpecification
-        NotSpecification = Alloverit::Patterns::Specification::NotSpecification
-
-        RSpec.describe Alloverit::Patterns::Specification do
+        RSpec.describe Specification do
           let(:spec) { DummySpecification.new }
 
           describe "#satisfied_by?" do
             let(:spec) { DummyBadImplementationSpecification.new }
 
             it "raises NotImplementedError when #satisfied_by? not implemented" do
-              expect { spec.satisfied_by?(double) }.to raise_error(NotImplementedError, "You must implement #satisfied_by?")
+              expect { spec.satisfied_by?(double) }.to(
+                raise_error(NotImplementedError, "You must implement #satisfied_by?")
+              )
             end
           end
 

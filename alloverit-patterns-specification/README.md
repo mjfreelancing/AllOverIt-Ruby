@@ -1,34 +1,61 @@
 # Alloverit::Patterns::Specification
 
-TODO: Delete this and the text below, and describe your gem
+The Specification pattern is a design pattern used to encapsulate business logic and validation rules into reusable
+and composable components. It allows you to separate the logic for decision-making from the entities or classes that
+use the decision-making logic. This pattern is particularly useful for building complex queries and validation rules
+in a flexible and maintainable manner.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/alloverit/patterns/specification`. To experiment with that code, run `bin/console` for an interactive prompt.
+![Specification Pattern](assets/uml.png)
+
+In this gem, the Specification pattern is implemented through the `Alloverit::Patterns::Specification` module.
+
+`CompositeSpecification` serves as the base class from which all specifications derive. It provides the interface for
+combining and evaluating specifications using logical operations such as `and`, `and_not`, `or`, `or_not` and `not`.
+
+This gem supports flexible composition, allowing you to combine specifications through both class and instance-level
+operations.
+
+Refer to the [Usage](#usage) section below for details on how to use this gem in your application.
+
 
 ## Installation
-
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
 
 Install the gem and add to the application's Gemfile by executing:
 
 ```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+bundle add alloverit-patterns-specification
 ```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+gem install alloverit-patterns-specification
 ```
+
+
+## Dependencies
+None.
+
+
+
+
 
 ## Usage
 
 TODO: Write usage instructions here
 
-## Development
+## Demo Applications
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+Two demo applications are included. They `require` the local code so there's no need to install the gem to run them.
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+### Demo 1
+
+To run the demo, run `rake run_demo1`.
+
+### Demo 2
+
+To run the demo, run `rake run_demo2`.
+
 
 ## License
 

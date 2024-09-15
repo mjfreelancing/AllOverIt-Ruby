@@ -1,0 +1,71 @@
+direction: right
+
+Specification: "Specification (module)" {
+  shape: class
+
+  "satisfied_by?(candidate: object)": bool
+
+  "and(other: Specification)": Specification
+  "and_not(other: Specification)": Specification
+  "or(other: Specification)": Specification
+  "or_not(other: Specification)": Specification
+  not(): Specification
+}
+
+CompositeSpecification: "CompositeSpecification" {
+  shape: class
+
+  "satisfied_by?(candidate: Specification)": bool
+
+  "self.and(other: Specification))": Specification
+  "self.and_not(other: Specification))": Specification
+  "self.or(other: Specification))": Specification
+  "self.or_not(other: Specification))": Specification
+  "self.not()": Specification
+}
+
+AndSpecification: AndSpecification {
+  shape: class
+
+  "initialize(left: Specification, right: Specification)"
+}
+
+AndNotSpecification: AndNotSpecification {
+  shape: class
+
+  "initialize(left: Specification, right: Specification)"
+}
+
+OrSpecification: OrSpecification {
+  shape: class
+
+  "initialize(left: Specification, right: Specification)"
+}
+
+OrNotSpecification: OrNotSpecification {
+  shape: class
+
+  "initialize(left: Specification, right: Specification)"
+}
+
+NotSpecification: NotSpecification {
+  shape: class
+
+  initialize()
+}
+
+classes: {
+  inheritance: {
+    source-arrowhead: {
+      shape: triangle
+      style.filled: false
+    }
+  }
+}
+
+Specification <- CompositeSpecification: {class: inheritance}
+CompositeSpecification <- AndSpecification: {class: inheritance}
+CompositeSpecification <- AndNotSpecification: {class: inheritance}
+CompositeSpecification <- OrSpecification: {class: inheritance}
+CompositeSpecification <- OrNotSpecification: {class: inheritance}
+CompositeSpecification <- NotSpecification: {class: inheritance}

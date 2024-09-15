@@ -2,36 +2,30 @@
 
 require "rspec"
 
-require_relative "../../../../lib/alloverit/patterns/specification"
-require_relative "../../../../lib/alloverit/patterns/specification/composite_specification"
-require_relative "../../../../lib/alloverit/patterns/specification/and_specification"
-
-module AllOverIt
+module Alloverit
   module Patterns
     module Specification
       module AndSpecificationFixture
-        CompositeSpecification = Alloverit::Patterns::Specification::CompositeSpecification
-
-        class TrueSpecification < CompositeSpecification
-          def satisfied_by?(candidate)
-            true
-          end
-        end
-
-        class FalseSpecification < CompositeSpecification
-          def satisfied_by?(candidate)
-            false
-          end
-        end
-
-        RSpec.describe Alloverit::Patterns::Specification::AndSpecification do
+        RSpec.describe AndSpecification do
           let(:true_spec) { TrueSpecification.new }
           let(:false_spec) { FalseSpecification.new }
           let(:candidate) { "any candidate" }
 
+          describe "initialization" do
+            describe "when other is not a CompositeSpecification" do
+              it "raises ArgumentError" do
+                expect { TrueSpecification.and(BadSpecification.new) }.to(
+                  raise_error(
+                    ArgumentError,
+                    "Expected an instance of #{CompositeSpecification.name}, got #{BadSpecification.name}")
+                )
+              end
+            end
+          end
+
           describe "inheritance hierarchy" do
-            it 'inherits from CompositeSpecification' do
-              expect(Alloverit::Patterns::Specification::AndSpecification).to be < Alloverit::Patterns::Specification::CompositeSpecification
+            it "inherits from CompositeSpecification" do
+              expect(AndSpecification).to be < CompositeSpecification
             end
           end
 
