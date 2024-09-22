@@ -17,7 +17,8 @@ module Alloverit
                 expect { TrueSpecification.or_not(BadSpecification.new) }.to(
                   raise_error(
                     ArgumentError,
-                    "Expected an instance of #{CompositeSpecification.name}, got #{BadSpecification.name}")
+                    "Expected an instance of #{CompositeSpecification.name}, got #{BadSpecification.name}"
+                  )
                 )
               end
             end

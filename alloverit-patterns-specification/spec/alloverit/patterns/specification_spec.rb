@@ -11,7 +11,7 @@ module Alloverit
         class DummySpecification
           include Specification
 
-          def satisfied_by?(candidate)
+          def satisfied_by?(_)
             true
           end
         end

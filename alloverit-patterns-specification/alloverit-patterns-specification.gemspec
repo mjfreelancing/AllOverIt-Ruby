@@ -8,8 +8,9 @@ Gem::Specification.new do |spec|
   spec.authors = ["Malcolm Smith"]
   spec.email = ["malcolm@mjfreelancing.com"]
 
-  spec.summary = "A ruby implementation of the Specification Pattern."
-  spec.description = "A ruby implementation of the Specification Pattern that supports the composition of class and instance specifications."
+  spec.summary = "A Ruby implementation of the Specification Pattern."
+  spec.description = "A Ruby implementation of the Specification Pattern that supports the composition of class " \
+                     "and instance specifications."
   spec.homepage = "https://github.com/mjfreelancing/AllOverIt-Ruby"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"

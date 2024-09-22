@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Demo2
   module Models
     class ScovilleRange
