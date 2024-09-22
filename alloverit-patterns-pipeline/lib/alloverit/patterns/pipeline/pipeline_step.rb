@@ -4,7 +4,7 @@ module Alloverit
   module Patterns
     module Pipeline
       class PipelineStep
-        def execute(input = nil)
+        def call(input = nil)
           raise NotImplementedError, "'#{self.class}' has not implemented '#{__method__}'."
         end
       end

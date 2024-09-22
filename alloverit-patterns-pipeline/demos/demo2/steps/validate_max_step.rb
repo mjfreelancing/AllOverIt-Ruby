@@ -9,7 +9,7 @@ module Demo2
       @upper_limit = upper_limit
     end
 
-    def execute(input)
+    def call(input)
       value = input[:value]
       input[:errors] << "#{value} exceeds the maximum limit of #{@upper_limit}" if value > @upper_limit
       input

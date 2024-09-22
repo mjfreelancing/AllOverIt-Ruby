@@ -17,7 +17,7 @@ module Alloverit
             @block = block
           end
 
-          def execute(input = nil)
+          def call(input = nil)
             @block.call(input)
           end
         end
@@ -43,7 +43,7 @@ module Alloverit
 
         def call(input)
           @steps.reduce(input) do |current_input, step|
-            step.execute(current_input)
+            step.call(current_input)
           end
         end
       end

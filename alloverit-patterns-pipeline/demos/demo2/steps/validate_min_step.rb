@@ -9,7 +9,7 @@ module Demo2
       @lower_limit = lower_limit
     end
 
-    def execute(input)
+    def call(input)
       value = input[:value]
       input[:errors] << "#{value} exceeds the minimum limit of #{@lower_limit}" if value < @lower_limit
       input
