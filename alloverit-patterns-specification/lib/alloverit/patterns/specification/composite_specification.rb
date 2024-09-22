@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "../../utils"
 require_relative "../specification"
 
 module Alloverit
@@ -43,15 +44,11 @@ module Alloverit
           new.not
         end
 
-        protected
-
-        def initialize; end
-
         class << self
           private
 
           def instantiate_if_class(other)
-            instance = other.is_a?(Class) ? other.new : other
+            instance = Utils.instantiate_if_class(other)
 
             unless instance.is_a?(CompositeSpecification)
               raise ArgumentError, "Expected an instance of #{CompositeSpecification.name}, got #{instance.class}"

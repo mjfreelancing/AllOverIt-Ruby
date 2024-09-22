@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_relative "../utils"
 require_relative "specification/and_specification"
 require_relative "specification/and_not_specification"
 require_relative "specification/or_specification"
@@ -22,40 +23,34 @@ module Alloverit
       # Combines the current specification with another specification using a logical AND. Returns a new
       # AndSpecification object that represents the combined criteria.
       def and(other)
-        instance = instantiate_if_class(other)
+        instance = Utils.instantiate_if_class(other)
         AndSpecification.new(self, instance)
       end
 
       # Combines the current specification with another specification using a logical AND NOT. Returns a new
       # AndNotSpecification object that represents the combined criteria.
       def and_not(other)
-        instance = instantiate_if_class(other)
+        instance = Utils.instantiate_if_class(other)
         AndNotSpecification.new(self, instance)
       end
 
       # Combines the current specification with another specification using a logical OR. Returns a new
       # OrSpecification object that represents the combined criteria.
       def or(other)
-        instance = instantiate_if_class(other)
+        instance = Utils.instantiate_if_class(other)
         OrSpecification.new(self, instance)
       end
 
       # Combines the current specification with another specification using a logical OR NOT. Returns a new
       # OrNotSpecification object that represents the combined criteria.
       def or_not(other)
-        instance = instantiate_if_class(other)
+        instance = Utils.instantiate_if_class(other)
         OrNotSpecification.new(self, instance)
       end
 
       # Negates the current specification. Returns a new NotSpecification object that represents the negated criteria.
       def not
         NotSpecification.new(self)
-      end
-
-      private
-
-      def instantiate_if_class(other)
-        other.is_a?(Class) ? other.new : other
       end
     end
   end
