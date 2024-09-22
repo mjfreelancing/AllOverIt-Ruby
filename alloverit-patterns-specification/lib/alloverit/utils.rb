@@ -2,7 +2,7 @@
 
 module Alloverit
   module Utils
-    def self.instantiate_if_class(other)
+    def self.ensure_instance(other)
       other.is_a?(Class) ? other.new : other
     end
   end

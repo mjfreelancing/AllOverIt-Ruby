@@ -48,7 +48,7 @@ module Alloverit
           private
 
           def instantiate_if_class(other)
-            instance = Utils.instantiate_if_class(other)
+            instance = Utils.ensure_instance(other)
 
             unless instance.is_a?(CompositeSpecification)
               raise ArgumentError, "Expected an instance of #{CompositeSpecification.name}, got #{instance.class}"
