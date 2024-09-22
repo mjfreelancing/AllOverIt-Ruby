@@ -1,7 +1,5 @@
 # frozen_string_literal: true
-# rubocop:disable all
 
-require "bundler/setup"
 require_relative "specifications/is_even_number"
 require_relative "specifications/is_less_than"
 

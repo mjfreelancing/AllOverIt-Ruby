@@ -1,7 +1,5 @@
 # frozen_string_literal: true
-# rubocop:disable all
 
-require "bundler/setup"
 require_relative "models/chilli"
 require_relative "models/scoville_range"
 require_relative "specifications/has_color"
