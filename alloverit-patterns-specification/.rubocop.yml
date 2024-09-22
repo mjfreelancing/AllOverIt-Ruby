@@ -3,14 +3,10 @@ AllCops:
 
   Exclude:
     - "demos/**/*.rb"
+    - "spec/**/*.rb"
 
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
-
-# Disable (specs) Metrics/BlockLength: Block has too many lines.
-Metrics/BlockLength:
-  Exclude:
-    - "spec/**/*.rb"
