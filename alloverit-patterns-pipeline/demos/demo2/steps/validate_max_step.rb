@@ -3,7 +3,7 @@
 require_relative "../../../lib/alloverit/patterns/pipeline/pipeline_step"
 
 module Demo2
-  class ValidateMaxStep < Alloverit::Patterns::Pipeline::PipelineStep
+  class ValidateMaxStep < AllOverIt::Patterns::Pipeline::PipelineStep
     def initialize(upper_limit)
       super()
       @upper_limit = upper_limit

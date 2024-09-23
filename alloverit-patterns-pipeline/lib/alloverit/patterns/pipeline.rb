@@ -2,7 +2,7 @@
 
 require_relative "pipeline/pipeline_step"
 
-module Alloverit
+module AllOverIt
   module Patterns
     module Pipeline
       def self.create

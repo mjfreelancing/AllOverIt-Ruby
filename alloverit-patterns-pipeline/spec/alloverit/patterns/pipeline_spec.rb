@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-RSpec.describe Alloverit::Patterns::Pipeline do
+# require_relative "../../../lib/alloverit/patterns/pipeline"
+# require_relative "../../../lib/alloverit/patterns/pipeline/version"
+
+RSpec.describe AllOverIt::Patterns::Pipeline do
   it "has a version number" do
-    expect(Alloverit::Patterns::Pipeline::VERSION).not_to be nil
+    expect(AllOverIt::Patterns::Pipeline::VERSION).not_to be nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
-  end
+
 end

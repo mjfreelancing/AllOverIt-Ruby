@@ -5,11 +5,11 @@ require_relative "steps/double_step"
 require_relative "steps/increment_step"
 require_relative "steps/square_step"
 
-PipelineStep = Alloverit::Patterns::Pipeline::PipelineStep
+PipelineStep = AllOverIt::Patterns::Pipeline::PipelineStep
 
 module Demo1
-  # This is equivalent to Alloverit::Patterns::Pipeline::Pipeline.new
-  pipeline = Alloverit::Patterns::Pipeline.create
+  # This is equivalent to AllOverIt::Patterns::Pipeline::Pipeline.new
+  pipeline = AllOverIt::Patterns::Pipeline.create
 
   # Each call to #step below mutates the pipeline definition
 

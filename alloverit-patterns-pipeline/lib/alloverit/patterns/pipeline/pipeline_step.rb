@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Alloverit
+module AllOverIt
   module Patterns
     module Pipeline
       class PipelineStep

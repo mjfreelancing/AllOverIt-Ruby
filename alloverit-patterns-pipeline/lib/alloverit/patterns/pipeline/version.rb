@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module Alloverit
+module AllOverIt
   module Patterns
     module Pipeline
-      VERSION = "0.1.0"
+      VERSION = "1.0.0"
     end
   end
 end
