@@ -7,7 +7,7 @@ require_relative "specification/or_specification"
 require_relative "specification/or_not_specification"
 require_relative "specification/not_specification"
 
-module Alloverit
+module AllOverIt
   module Patterns
     # The Specification module defines a set of methods for creating and combining specifications. Each method
     # returns a new specification object, allowing for composition and chaining of different specifications.

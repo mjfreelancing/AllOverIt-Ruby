@@ -3,10 +3,10 @@
 require_relative "../../../../../lib/alloverit/patterns/specification/composite_specification"
 
 module Support
-  module Alloverit
+  module AllOverIt
     module Patterns
       module Specification
-        class TrueSpecification < ::Alloverit::Patterns::Specification::CompositeSpecification
+        class TrueSpecification < ::AllOverIt::Patterns::Specification::CompositeSpecification
           def satisfied_by?(_)
             true
           end

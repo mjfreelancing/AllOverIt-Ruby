@@ -5,7 +5,7 @@ require_relative "../../../lib/alloverit/patterns/specification/composite_specif
 
 module Demo2
   module Specifications
-    class HasColor < Alloverit::Patterns::Specification::CompositeSpecification
+    class HasColor < AllOverIt::Patterns::Specification::CompositeSpecification
       def initialize(color)
         super()
 

@@ -5,7 +5,7 @@ require_relative "../../../lib/alloverit/patterns/specification/composite_specif
 
 module Demo2
   module Specifications
-    class HasOrigin < Alloverit::Patterns::Specification::CompositeSpecification
+    class HasOrigin < AllOverIt::Patterns::Specification::CompositeSpecification
       def initialize(origin)
         super()
 

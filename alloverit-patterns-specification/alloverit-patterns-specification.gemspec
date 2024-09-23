@@ -4,7 +4,7 @@ require_relative "lib/alloverit/patterns/specification/version"
 
 Gem::Specification.new do |spec|
   spec.name = "alloverit-patterns-specification"
-  spec.version = Alloverit::Patterns::Specification::VERSION
+  spec.version = AllOverIt::Patterns::Specification::VERSION
   spec.authors = ["Malcolm Smith"]
   spec.email = ["malcolm@mjfreelancing.com"]
 

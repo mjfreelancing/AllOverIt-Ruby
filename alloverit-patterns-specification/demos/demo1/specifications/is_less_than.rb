@@ -5,7 +5,7 @@ require_relative "../../../lib/alloverit/patterns/specification/composite_specif
 
 module Demo1
   module Specifications
-    class IsLessThan < Alloverit::Patterns::Specification::CompositeSpecification
+    class IsLessThan < AllOverIt::Patterns::Specification::CompositeSpecification
       def initialize(upper_bound)
         super()
         @upper_bound = upper_bound

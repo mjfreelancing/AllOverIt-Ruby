@@ -2,7 +2,7 @@
 
 require_relative "composite_specification"
 
-module Alloverit
+module AllOverIt
   module Patterns
     module Specification
       class OrSpecification < CompositeSpecification

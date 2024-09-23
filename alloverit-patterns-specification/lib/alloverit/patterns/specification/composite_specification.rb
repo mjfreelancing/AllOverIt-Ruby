@@ -3,7 +3,7 @@
 require_relative "../../utils"
 require_relative "../specification"
 
-module Alloverit
+module AllOverIt
   module Patterns
     module Specification
       # Abstract base class for all concrete specifications.

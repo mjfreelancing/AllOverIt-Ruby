@@ -2,13 +2,13 @@
 
 require_relative "../../../../lib/alloverit/patterns/specification/version"
 
-module Alloverit
+module AllOverIt
   module Patterns
     module Specification
       module VersionFixture
         RSpec.describe Specification do
           it "has a version number" do
-            expect(Alloverit::Patterns::Specification::VERSION).not_to be nil
+            expect(AllOverIt::Patterns::Specification::VERSION).not_to be nil
           end
         end
       end

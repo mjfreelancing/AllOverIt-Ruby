@@ -5,7 +5,7 @@ require_relative "../../../lib/alloverit/patterns/specification/composite_specif
 
 module Demo2
   module Specifications
-    class IsMild < Alloverit::Patterns::Specification::CompositeSpecification
+    class IsMild < AllOverIt::Patterns::Specification::CompositeSpecification
       def satisfied_by?(chilli)
         chilli.scoville_range.upper < 10_000
       end

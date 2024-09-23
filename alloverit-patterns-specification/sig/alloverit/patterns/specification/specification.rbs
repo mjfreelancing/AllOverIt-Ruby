@@ -1,6 +1,6 @@
 # See the writing guide of rbs: https://github.com/ruby/rbs#guides
 
-module Alloverit
+module AllOverIt
   module Patterns
     module Specification
       def satisfied_by?: (candidate: untyped) -> bool

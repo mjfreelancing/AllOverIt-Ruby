@@ -3,7 +3,7 @@
 require_relative "../../../../../lib/alloverit/patterns/specification"
 
 module Support
-  module Alloverit
+  module AllOverIt
     module Patterns
       module Specification
         class BadSpecification

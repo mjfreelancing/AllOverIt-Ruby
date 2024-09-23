@@ -2,7 +2,7 @@
 
 require "rspec"
 
-module Alloverit
+module AllOverIt
   module Patterns
     module Specification
       module OrSpecificationFixture

@@ -1,4 +1,4 @@
-module Alloverit
+module AllOverIt
   module Patterns
     module Specification
       class OrNotSpecification

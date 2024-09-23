@@ -1,4 +1,4 @@
-# Alloverit::Patterns::Specification
+# AllOverIt::Patterns::Specification
 
 The Specification pattern is a design pattern used to encapsulate business logic and validation rules into reusable
 and composable components. It separates the logic for decision-making from the entities or classes that use it,
@@ -11,7 +11,7 @@ Each unit of logic is implemented as a concrete subclass of `CompositeSpecificat
 interface for combining and evaluating specifications through logical operations such as `and`, `and_not`, `or`,
 `or_not` and `not`.
 
-In this gem, the Specification pattern is implemented through the `Alloverit::Patterns::Specification` module, which
+In this gem, the Specification pattern is implemented through the `AllOverIt::Patterns::Specification` module, which
 supports flexible composition of specifications at both class and instance levels.
 
 Refer to the [Usage](#usage) section below for details on how to use this gem in your application.
