@@ -5,6 +5,9 @@ AllCops:
     - "demos/**/*.rb"
     - "spec/**/*.rb"
 
+Layout/LineLength:
+  Enabled: false
+
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
