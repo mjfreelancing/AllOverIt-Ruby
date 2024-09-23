@@ -2,13 +2,13 @@ module AllOverIt
   module Patterns
     module Specification
       class CompositeSpecification
-        def self.and: (other: Specification | [class, Specification]) -> Specification
+        def self.and: (other: Specification | class) -> Specification
 
-        def self.and_not: (other: Specification | [class, Specification]) -> Specification
+        def self.and_not: (other: Specification | class) -> Specification
 
-        def self.or: (other: Specification | [class, Specification]) -> Specification
+        def self.or: (other: Specification | class) -> Specification
 
-        def self.or_not: (other: Specification | [class, Specification]) -> Specification
+        def self.or_not: (other: Specification | class) -> Specification
 
         def self.not: -> NotSpecification
       end

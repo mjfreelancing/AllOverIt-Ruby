@@ -1,0 +1,19 @@
+# See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+module AllOverIt
+  module Patterns
+    module Specification
+      def satisfied_by?: (candidate: untyped) -> bool
+
+      def and: (other: Specification | class) -> Specification
+
+      def and_not: (other: Specification | class) -> Specification
+
+      def or: (other: Specification | class) -> Specification
+
+      def or_not: (other: Specification | class) -> Specification
+
+      def not: -> Specification
+    end
+  end
+end
