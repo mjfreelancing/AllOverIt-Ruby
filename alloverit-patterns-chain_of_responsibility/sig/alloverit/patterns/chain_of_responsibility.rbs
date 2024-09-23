@@ -1,8 +1,14 @@
+# See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
 module AllOverIt
   module Patterns
     module ChainOfResponsibility
       VERSION: String
-      # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+      # handlers is an array where each element can be either an instance of ChainOfResponsibilityHandler
+      # or a class type that inherits from ChainOfResponsibilityHandler.
+      def self.compose: (handlers: Array[ChainOfResponsibilityHandler | class]) -> ChainOfResponsibilityHandler
+
     end
   end
 end

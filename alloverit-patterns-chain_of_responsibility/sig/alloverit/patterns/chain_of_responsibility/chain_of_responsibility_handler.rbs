@@ -1,0 +1,11 @@
+module AllOverIt
+  module Patterns
+    module ChainOfResponsibility
+      class ChainOfResponsibilityHandler
+
+        def next_handler: (handler: ChainOfResponsibilityHandler) -> ChainOfResponsibilityHandler
+
+      end
+    end
+  end
+end

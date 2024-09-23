@@ -12,7 +12,7 @@ module AllOverIt
           @next_handler = nil
         end
 
-        def set_next(handler)
+        def next_handler(handler)
           raise ArgumentError, "A Chain Of Responsibility handler cannot be nil." if handler.nil?
 
           @next_handler = handler

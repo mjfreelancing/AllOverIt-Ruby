@@ -21,10 +21,10 @@ module Demo1
   # handler1 = HighSeverityHandler.new
   # handler2 = MediumSeverityHandler.new
   # handler3 = LowSeverityHandler.new
-  # handler1.set_next(handler2).set_next(handler3)
+  # handler1.next_handler(handler2).next_handler(handler3)
 
   # Or they can be composed in a single call. The array can be class types or instances (as shown).
-  handler1 = ChainOfResponsibility.compose([HighSeverityHandler, LowSeverityHandler, MediumSeverityHandler])
+  handler1 = ChainOfResponsibility.compose(HighSeverityHandler, LowSeverityHandler, MediumSeverityHandler)
 
   requests.each do |request|
     response = handler1.handle(request)
