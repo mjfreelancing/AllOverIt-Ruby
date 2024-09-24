@@ -7,8 +7,7 @@ module Support
     module Patterns
       module Specification
         class BadSpecification
-          # should implement CompositeSpecification
-          include Specification
+          # should include Specification or inherit CompositeSpecification
         end
       end
     end

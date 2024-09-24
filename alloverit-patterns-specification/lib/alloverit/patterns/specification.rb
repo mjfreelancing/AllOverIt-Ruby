@@ -23,28 +23,28 @@ module AllOverIt
       # Combines the current specification with another specification using a logical AND. Returns a new
       # AndSpecification object that represents the combined criteria.
       def and(other)
-        instance = Utils.ensure_instance(other)
+        instance = Utils.as_instance(other)
         AndSpecification.new(self, instance)
       end
 
       # Combines the current specification with another specification using a logical AND NOT. Returns a new
       # AndNotSpecification object that represents the combined criteria.
       def and_not(other)
-        instance = Utils.ensure_instance(other)
+        instance = Utils.as_instance(other)
         AndNotSpecification.new(self, instance)
       end
 
       # Combines the current specification with another specification using a logical OR. Returns a new
       # OrSpecification object that represents the combined criteria.
       def or(other)
-        instance = Utils.ensure_instance(other)
+        instance = Utils.as_instance(other)
         OrSpecification.new(self, instance)
       end
 
       # Combines the current specification with another specification using a logical OR NOT. Returns a new
       # OrNotSpecification object that represents the combined criteria.
       def or_not(other)
-        instance = Utils.ensure_instance(other)
+        instance = Utils.as_instance(other)
         OrNotSpecification.new(self, instance)
       end
 

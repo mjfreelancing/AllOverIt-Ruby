@@ -13,28 +13,28 @@ module AllOverIt
         # Class-level method for combining two specifications using a logical AND. Returns a new
         # AndSpecification object that represents the combined criteria.
         def self.and(other)
-          instance = instantiate_if_class(other)
+          instance = ensure_instance(other)
           new.and(instance)
         end
 
         # Class-level method for combining two specifications using a logical AND NOT. Returns a new
         # AndNotSpecification object that represents the combined criteria.
         def self.and_not(other)
-          instance = instantiate_if_class(other)
+          instance = ensure_instance(other)
           new.and_not(instance)
         end
 
         # Class-level method for combining two specifications using a logical OR. Returns a new
         # OrSpecification object that represents the combined criteria.
         def self.or(other)
-          instance = instantiate_if_class(other)
+          instance = ensure_instance(other)
           new.or(instance)
         end
 
         # Class-level method for combining two specifications using a logical OR NOT. Returns a new
         # OrNotSpecification object that represents the combined criteria.
         def self.or_not(other)
-          instance = instantiate_if_class(other)
+          instance = ensure_instance(other)
           new.or_not(instance)
         end
 
@@ -47,14 +47,10 @@ module AllOverIt
         class << self
           private
 
-          def instantiate_if_class(other)
-            instance = Utils.ensure_instance(other)
+          def ensure_instance(other)
+            instance = Utils.as_instance(other)
 
-            unless instance.is_a?(CompositeSpecification)
-              raise ArgumentError, "Expected an instance of #{CompositeSpecification.name}, got #{instance.class}"
-            end
-
-            instance
+            Utils.ensure_instance_includes(instance, Specification)
           end
         end
       end
