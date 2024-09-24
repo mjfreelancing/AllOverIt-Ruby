@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    alloverit-patterns-specification (1.0.0)
+    alloverit-patterns-chain_of_responsibility (1.0.0)
       alloverit-utils (~> 1.0)
 
 GEM
@@ -46,14 +46,14 @@ GEM
     rubocop-ast (1.32.3)
       parser (>= 3.3.1.0)
     ruby-progressbar (1.13.0)
-    unicode-display_width (2.5.0)
+    unicode-display_width (2.6.0)
 
 PLATFORMS
   ruby
   x86_64-linux
 
 DEPENDENCIES
-  alloverit-patterns-specification!
+  alloverit-patterns-chain_of_responsibility!
   rake (~> 13.0)
   rspec (~> 3.0)
   rubocop (~> 1.21)

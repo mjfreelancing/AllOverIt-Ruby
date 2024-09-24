@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "../utils"
+require "alloverit/utils"
+
 require_relative "specification/and_specification"
 require_relative "specification/and_not_specification"
 require_relative "specification/or_specification"

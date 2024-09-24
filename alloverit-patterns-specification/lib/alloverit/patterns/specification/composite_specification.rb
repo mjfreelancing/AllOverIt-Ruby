@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "../../utils"
+require "alloverit/utils"
+
 require_relative "../specification"
 
 module AllOverIt

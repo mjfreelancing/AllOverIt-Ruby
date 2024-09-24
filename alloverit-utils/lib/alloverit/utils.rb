@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# TODO: to be moved to a Utils gem
 module AllOverIt
   module Utils
     # @param instance_or_class An instance of an object or a class type.

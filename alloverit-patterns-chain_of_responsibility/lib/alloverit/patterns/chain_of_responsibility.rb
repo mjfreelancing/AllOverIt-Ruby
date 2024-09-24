@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../utils"
+require "alloverit/utils"
 
 module AllOverIt
   module Patterns
@@ -9,10 +9,10 @@ module AllOverIt
       def self.compose(*handlers)
         raise ArgumentError, "The handlers cannot be null or empty." if handlers.nil? || handlers.empty?
 
-        first_handler = Utils.ensure_instance(handlers.first)
+        first_handler = AllOverIt::Utils.as_instance(handlers.first)
 
         handlers[1..].reduce(first_handler) do |current, handler|
-          next_handler = Utils.ensure_instance(handler)
+          next_handler = Utils.as_instance(handler)
           current.next_handler(next_handler)
         end
 

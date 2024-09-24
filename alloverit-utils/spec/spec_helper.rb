@@ -11,5 +11,3 @@ RSpec.configure do |config|
     c.syntax = :expect
   end
 end
-
-Dir[File.expand_path("../lib/**/*.rb", File.dirname(__FILE__))].sort.each { |f| require f }

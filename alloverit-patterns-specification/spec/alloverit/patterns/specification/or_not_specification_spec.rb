@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "rspec"
-
 module AllOverIt
   module Patterns
     module Specification
