@@ -1,6 +1,13 @@
-module Alloverit
+# See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+module AllOverIt
   module Utils
     VERSION: String
-    # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+    def self.as_instance: (instance_or_class: instance | class) -> instance
+
+    def self.ensure_instance_includes: (instance: instance, class_type: class) -> instance
+
+    def self.ensure_instance_is_a: (instance: instance, class_type: class) -> instance
   end
 end
