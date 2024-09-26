@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["malcolm@mjfreelancing.com"]
 
   spec.summary = "A collection of general purpose Ruby utility methods."
-  spec.description = "A collection of general purpose Ruby utility methods."
+  # spec.description = "A collection of general purpose Ruby utility methods."
   spec.homepage = "https://github.com/mjfreelancing/AllOverIt-Ruby"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.0.0"
