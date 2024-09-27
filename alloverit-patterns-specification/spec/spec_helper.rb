@@ -14,7 +14,3 @@ end
 
 Dir[File.expand_path("../lib/**/*.rb", File.dirname(__FILE__))].sort.each { |f| require f }
 Dir[File.expand_path("support/**/*.rb", File.dirname(__FILE__))].sort.each { |f| require f }
-
-TrueSpecification = Support::AllOverIt::Patterns::Specification::TrueSpecification
-FalseSpecification = Support::AllOverIt::Patterns::Specification::FalseSpecification
-BadSpecification = Support::AllOverIt::Patterns::Specification::BadSpecification
