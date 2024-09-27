@@ -4,10 +4,10 @@ module AllOverIt
   module Utils
     VERSION: String
 
-    def self.as_instance: (instance_or_class: instance | class) -> instance
+    def self.as_instance: (instance_or_class: untyped | class) -> untyped
 
-    def self.ensure_instance_includes: (instance: instance, class_type: class) -> instance
+    def self.ensure_instance_includes: (instance: untyped, class_type: class) -> untyped
 
-    def self.ensure_instance_is_a: (instance: instance, class_type: class) -> instance
+    def self.ensure_instance_is_a: (instance: untyped, class_type: class) -> untyped
   end
 end
