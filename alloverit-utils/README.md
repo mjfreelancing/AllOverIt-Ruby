@@ -1,4 +1,4 @@
-# Alloverit::Utils
+# AllOverIt::Utils
 
 This general purpose utility gem primarily exists to support other **AllOverIt** gems. Take a look, you might find something useful for your own projects.
 
@@ -26,7 +26,7 @@ None.
 
 ## Usage
 
-### Namespace: AllOverIt::Utils.as_instance
+### AllOverIt::Utils.as_instance
 This method checks whether the argument is a class or an instance. If a class is provided, it returns a default initialized instance of the class. If an instance is provided, it returns the instance as is.
 
 ```ruby
@@ -41,7 +41,7 @@ instance2 = AllOverIt::Utils.as_instance(instance1)
 ```
 
 
-### Namespace: AllOverIt::Utils.ensure_instance_includes
+### AllOverIt::Utils.ensure_instance_includes
 This method checks that an instance variable includes a specified module. The instance is returned if its' ancestor chain includes the module, otherwise an ArgumentError is raised.
 
 ```ruby
@@ -66,7 +66,7 @@ instance4 = AllOverIt::Utils.ensure_instance_includes(instance2, SomeModule)
 ```
 
 
-### Namespace: AllOverIt::Utils.ensure_instance_is_a
+### AllOverIt::Utils.ensure_instance_is_a
 This method checks that an instance variable inherits a specified class. The instance is returned if it inherits the specified class, otherwise an ArgumentError is raised.
 
 ```ruby
