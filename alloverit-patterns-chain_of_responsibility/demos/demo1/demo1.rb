@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-require_relative "../../lib/alloverit/patterns/chain_of_responsibility"
+require "alloverit/patterns/chain_of_responsibility"
+
 require_relative "support_request"
 require_relative "handlers/low_severity_handler"
 require_relative "handlers/medium_severity_handler"

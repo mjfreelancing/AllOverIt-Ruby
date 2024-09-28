@@ -1,0 +1,16 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    alloverit-patterns-chain_of_responsibility (1.0.0)
+      alloverit-utils (~> 1.0)
+    alloverit-utils (1.0.0)
+
+PLATFORMS
+  ruby
+  x86_64-linux
+
+DEPENDENCIES
+  alloverit-patterns-chain_of_responsibility (~> 1.0.0)
+
+BUNDLED WITH
+   2.5.18
