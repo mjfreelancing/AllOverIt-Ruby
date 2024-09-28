@@ -1,34 +1,94 @@
 # Alloverit::Utils
 
-TODO: Delete this and the text below, and describe your gem
+This general purpose utility gem primarily exists to support other **AllOverIt** gems. Take a look, you might find something useful for your own projects.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/alloverit/utils`. To experiment with that code, run `bin/console` for an interactive prompt.
+You can find the source at `lib/alloverit/utils`.
+
 
 ## Installation
-
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
 
 Install the gem and add to the application's Gemfile by executing:
 
 ```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+bundle add alloverit-utils
 ```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+gem install alloverit-utils
 ```
+
+
+## Dependencies
+None.
+
 
 ## Usage
 
-TODO: Write usage instructions here
+### Namespace: AllOverIt::Utils.as_instance
+This method checks whether the argument is a class or an instance. If a class is provided, it returns a default initialized instance of the class. If an instance is provided, it returns the instance as is.
 
-## Development
+```ruby
+class SomeClass
+end
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+# Will create an instance of SomeClass and return it
+instance1 = AllOverIt::Utils.as_instance(SomeClass)
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+# instance2 will be the same as instance1
+instance2 = AllOverIt::Utils.as_instance(instance1)
+```
+
+
+### Namespace: AllOverIt::Utils.ensure_instance_includes
+This method checks that an instance variable includes a specified module. The instance is returned if its' ancestor chain includes the module, otherwise an ArgumentError is raised.
+
+```ruby
+module SomeModule
+end
+
+class SomeClass
+end
+
+class AnotherClass
+  include SomeModule
+end
+
+instance1 = SomeClass.new
+instance2 = AnotherClass.new
+
+# Will raise an ArgumentError
+instance3 = AllOverIt::Utils.ensure_instance_includes(instance1, SomeModule)
+
+# instance4 will be the same as instance2
+instance4 = AllOverIt::Utils.ensure_instance_includes(instance2, SomeModule)
+```
+
+
+### Namespace: AllOverIt::Utils.ensure_instance_is_a
+This method checks that an instance variable inherits a specified class. The instance is returned if it inherits the specified class, otherwise an ArgumentError is raised.
+
+```ruby
+module SomeModule
+end
+
+class SomeClass
+end
+
+class AnotherClass < SomeClass
+end
+
+instance1 = SomeClass.new
+instance2 = AnotherClass.new
+
+# Will raise an ArgumentError
+instance3 = AllOverIt::Utils.ensure_instance_is_a(instance1, SomeOtherClass)
+
+# instance4 will be the same as instance2
+instance4 = AllOverIt::Utils.ensure_instance_is_a(instance2, SomeClass)
+```
+
 
 ## License
 
