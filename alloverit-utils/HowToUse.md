@@ -1,7 +1,9 @@
 # How To Use
 
-### AllOverIt::Utils.as_instance
-This method checks whether the argument is a class or an instance. If a class is provided, it returns a default initialized instance of the class. If an instance is provided, it returns the instance as is.
+## AllOverIt::Utils module
+
+### #self.as_instance
+This static method checks whether the argument is a class or an instance. If a class is provided, it returns a default initialized instance of the class. If an instance is provided, it returns the instance as is.
 
 ```ruby
 class SomeClass
@@ -15,8 +17,8 @@ instance2 = AllOverIt::Utils.as_instance(instance1)
 ```
 
 
-### AllOverIt::Utils.ensure_instance_includes
-This method checks that an instance variable includes a specified module. The instance is returned if its' ancestor chain includes the module, otherwise an ArgumentError is raised.
+### #self.ensure_instance_includes
+This static method checks that an instance variable includes a specified module. The instance is returned if its' ancestor chain includes the module, otherwise an ArgumentError is raised.
 
 ```ruby
 module SomeModule
@@ -40,8 +42,8 @@ instance4 = AllOverIt::Utils.ensure_instance_includes(instance2, SomeModule)
 ```
 
 
-### AllOverIt::Utils.ensure_instance_is_a
-This method checks that an instance variable inherits a specified class. The instance is returned if it inherits the specified class, otherwise an ArgumentError is raised.
+### #self.ensure_instance_is_a
+This static method checks that an instance variable inherits a specified class. The instance is returned if it inherits the specified class, otherwise an ArgumentError is raised.
 
 ```ruby
 module SomeModule
