@@ -1,8 +1,9 @@
 # How To Use
 
-**Quick Links**
+## Quick Links
 * [AllOverIt::Utils module](#alloveritutils-module)
 * [AllOverIt::Utils::Check module](#alloveritutilscheck-module)
+
 
 ## AllOverIt::Utils module
 
@@ -69,6 +70,8 @@ instance3 = AllOverIt::Utils.ensure_instance_is_a(instance1, SomeOtherClass)
 instance4 = AllOverIt::Utils.ensure_instance_is_a(instance2, SomeClass)
 ```
 
+[Back to top](#quick-links)
+
 
 ## AllOverIt::Utils::Check module
 
@@ -85,3 +88,5 @@ end
 ```
 
 If any argument is `nil` then an `ArgumentError` will be raised for that argument. The name of the symbol will be reported in the error.
+
+[Back to top](#quick-links)
