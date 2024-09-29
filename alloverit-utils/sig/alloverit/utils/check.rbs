@@ -1,0 +1,9 @@
+# See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+module AllOverIt
+  module Utils
+    module Check
+      def self.not_nil: (** untyped) -> void
+    end
+  end
+end
