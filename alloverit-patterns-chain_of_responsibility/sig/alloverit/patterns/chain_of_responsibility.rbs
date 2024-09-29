@@ -5,10 +5,7 @@ module AllOverIt
     module ChainOfResponsibility
       VERSION: String
 
-      # handlers is an array where each element can be either an instance of ChainOfResponsibilityHandler
-      # or a class type that inherits from ChainOfResponsibilityHandler.
-      def self.compose: (handlers: Array[ChainOfResponsibilityHandler | class]) -> ChainOfResponsibilityHandler
-
+      def self.compose: (*ChainOfResponsibilityHandler | singleton(ChainOfResponsibilityHandler)) -> ChainOfResponsibilityHandler
     end
   end
 end
