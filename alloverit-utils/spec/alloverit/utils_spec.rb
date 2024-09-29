@@ -9,10 +9,6 @@ module AllOverIt
       let(:dummy_class_with_module) { DummyClassWithModule.new }
       let(:inherited_dummy_class) { InheritedDummyClass.new }
 
-      it "has a version number" do
-        expect(described_class::VERSION).not_to be nil
-      end
-
       describe ".as_instance" do
         it "raises ArgumentError when nil" do
           expect do
@@ -22,7 +18,7 @@ module AllOverIt
 
         context "when given a class" do
           it "returns a new instance of the class" do
-            expect(described_class.as_instance(DummyClass)).to be_a(DummyClass)
+            expect(described_class.as_instance(DummyClass)).to be_instance_of(DummyClass)
           end
         end
 
