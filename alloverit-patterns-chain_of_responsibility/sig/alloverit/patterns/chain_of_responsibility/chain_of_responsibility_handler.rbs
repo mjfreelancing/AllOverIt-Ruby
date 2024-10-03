@@ -2,9 +2,11 @@ module AllOverIt
   module Patterns
     module ChainOfResponsibility
       class ChainOfResponsibilityHandler
+        @next_handler: ChainOfResponsibilityHandler?
 
-        def next_handler: (handler: ChainOfResponsibilityHandler) -> ChainOfResponsibilityHandler
+        def next_handler: (ChainOfResponsibilityHandler) -> ChainOfResponsibilityHandler
 
+        def handle: (untyped) -> untyped?
       end
     end
   end

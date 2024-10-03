@@ -6,14 +6,14 @@ module AllOverIt
       class ChainOfResponsibilityHandler
         def initialize
           if instance_of?(ChainOfResponsibilityHandler)
-            raise NotImplementedError, "ChainOfResponsibilityHandler is abstract."
+            raise NotImplementedError, "ChainOfResponsibilityHandler is abstract"
           end
 
           @next_handler = nil
         end
 
         def next_handler(handler)
-          raise ArgumentError, "A Chain Of Responsibility handler cannot be nil." if handler.nil?
+          raise ArgumentError, "A Chain Of Responsibility handler cannot be nil" if handler.nil?
 
           @next_handler = handler
           handler
