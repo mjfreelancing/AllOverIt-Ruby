@@ -13,7 +13,7 @@ module AllOverIt
       def self.compose(*handlers)
         raise ArgumentError, "The handlers cannot be empty." unless handlers.any?
 
-        first_handler = AllOverIt::Utils.as_instance(handlers.first)
+        first_handler = Utils.as_instance(handlers.first)
 
         handlers[1..].reduce(first_handler) do |current, handler|
           next_handler = Utils.as_instance(handler)
