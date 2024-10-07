@@ -17,6 +17,11 @@ module AllOverIt
         end
 
         describe "#and" do
+          it "returns an AndSpecification from a class specification and another specification instance" do
+            result = TrueSpecification.and(spec)
+            expect(result).to be_an_instance_of(AndSpecification)
+          end
+
           it "returns an AndSpecification when provided another specification instance" do
             other = DummySpecification.new
             result = spec.and(other)
@@ -30,6 +35,11 @@ module AllOverIt
         end
 
         describe "#and_not" do
+          it "returns an AndNotSpecification from a class specification and another specification instance" do
+            result = TrueSpecification.and_not(spec)
+            expect(result).to be_an_instance_of(AndNotSpecification)
+          end
+
           it "returns an AndNotSpecification when provided another specification instance" do
             other = DummySpecification.new
             result = spec.and_not(other)
@@ -43,6 +53,11 @@ module AllOverIt
         end
 
         describe "#or" do
+          it "returns an OrSpecification from a class specification and another specification instance" do
+            result = TrueSpecification.or(spec)
+            expect(result).to be_an_instance_of(OrSpecification)
+          end
+
           it "returns an OrSpecification when provided another specification instance" do
             other = DummySpecification.new
             result = spec.or(other)
@@ -56,6 +71,11 @@ module AllOverIt
         end
 
         describe "#or_not" do
+          it "returns an OrNotSpecification from a class specification and another specification instance" do
+            result = TrueSpecification.or_not(spec)
+            expect(result).to be_an_instance_of(OrNotSpecification)
+          end
+
           it "returns an OrNotSpecification when provided another specification instance" do
             other = DummySpecification.new
             result = spec.or_not(other)
@@ -69,6 +89,11 @@ module AllOverIt
         end
 
         describe "#not" do
+          it "returns a NotSpecification from a class specification" do
+            result = TrueSpecification.not
+            expect(result).to be_an_instance_of(NotSpecification)
+          end
+
           it "returns a NotSpecification instance" do
             result = spec.not
             expect(result).to be_an_instance_of(NotSpecification)

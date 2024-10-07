@@ -33,19 +33,12 @@ gem install alloverit-patterns-specification
 
 
 ## Dependencies
-None.
+`AllOverIt-Utils`
 
-
-
-
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Demo Applications
 
-Two demo applications are included. They `require` the local code so there's no need to install the gem to run them.
+The demo applications can be run after installing dependencies by executing `bin/setup`.
 
 ### Demo 1
 
@@ -54,6 +47,11 @@ To run the demo, run `rake run_demo1`.
 ### Demo 2
 
 To run the demo, run `rake run_demo2`.
+
+
+## Usage
+
+TODO: Write usage instructions here
 
 
 ## License
