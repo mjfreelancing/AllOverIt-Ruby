@@ -19,6 +19,7 @@ module Demo1
     input * 3
   end
 
+  # Append more blocks to the pipeline
   pipeline.step(IncrementStep.new)
           .step(DoubleStep.new)
           .step(SquareStep.new)

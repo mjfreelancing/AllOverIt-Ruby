@@ -17,7 +17,7 @@ module Demo2
           .step(ValidateMaxStep.new(20))
           .step(ValidateEvenStep.new)
 
-  puts "Checking between 5 and 26, testing for 10 <= n <= 20 and must be even"
+  puts "Checking between 5 and 26 (in increments of 3), testing for 10 <= n <= 20 and must be even"
   puts
 
   (5..26).step(3) do |i|

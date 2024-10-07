@@ -11,7 +11,6 @@ module AllOverIt
 
       class Pipeline
         class BlockStep < PipelineStep
-
           def initialize(&block)
             super()
             @block = block
@@ -21,6 +20,8 @@ module AllOverIt
             @block.call(input)
           end
         end
+
+        private_constant :BlockStep
 
         def initialize
           @steps = []
