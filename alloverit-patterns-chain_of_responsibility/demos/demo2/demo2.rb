@@ -9,16 +9,25 @@ require_relative "handlers/high_severity_handler"
 
 ChainOfResponsibility = AllOverIt::Patterns::ChainOfResponsibility
 
-# This demo #composes pre-built handlers - it's the most intuitive approach since #compose returns the first handler.
-module Demo1
+# This demo manually chains a number of handlers
+module Demo2
   requests = [
     SupportRequest.new(:low, "This is a minor issue."),
+    SupportRequest.new(:low_medium, "This needs to be triaged."),
     SupportRequest.new(:medium, "This needs attention."),
     SupportRequest.new(:high, "Critical failure!"),
     SupportRequest.new(:unknown, "This should not be handled.")
   ]
 
-  first_handler = ChainOfResponsibility.compose(HighSeverityHandler, LowSeverityHandler, MediumSeverityHandler)
+  # Need to have a reference to the first handler in the chain (to send all requests to)
+  first_handler = HighSeverityHandler.new
+
+  first_handler.next_handler(MediumSeverityHandler.new)
+               .next_handler do |request|
+                 # Return a result if handled, otherwise nil
+                 request.severity == :low_medium ? "Low-Medium Severity: #{request.message}" : nil
+               end
+               .next_handler(LowSeverityHandler.new)
 
   requests.each do |request|
     response = first_handler.handle(request)

@@ -2,9 +2,15 @@
 
 require_relative "../../../../lib/alloverit/patterns/chain_of_responsibility/chain_of_responsibility_handler"
 
-RSpec.describe AllOverIt::Patterns::ChainOfResponsibility::ChainOfResponsibilityHandler do
+ChainOfResponsibilityHandler = AllOverIt::Patterns::ChainOfResponsibility::ChainOfResponsibilityHandler
+
+RSpec.describe ChainOfResponsibilityHandler do
   let(:handler1) { DummyHandler1.new }
   let(:handler2) { DummyHandler2.new }
+
+  it "does not allow access to BlockHandler" do
+    expect { ChainOfResponsibilityHandler::BlockHandler }.to raise_error(NameError, /private constant AllOverIt::Patterns::ChainOfResponsibility::ChainOfResponsibilityHandler::BlockHandler/)
+  end
 
   describe "#initialize" do
     context "when trying to instantiate ChainOfResponsibilityHandler" do
@@ -23,23 +29,58 @@ RSpec.describe AllOverIt::Patterns::ChainOfResponsibility::ChainOfResponsibility
   describe "#next_handler" do
     context "when given a nil handler" do
       it "raises an ArgumentError" do
-        expect { handler1.next_handler(nil) }.to raise_error(ArgumentError, "A Chain Of Responsibility handler cannot be nil")
+        expect { handler1.next_handler(nil) }.to raise_error(ArgumentError, "A Chain of Responsibility handler must inherit #{ChainOfResponsibilityHandler.name} or have a call method that accepts exactly one argument")
       end
     end
 
     context "when given a non-nil handler" do
-      before do
-        handler1.next_handler(handler2)
+      context "that is a ChainOfResponsibilityHandler" do
+        before do
+          handler1.next_handler(handler2)
+        end
+
+        it "sets the next handler" do
+          expect(handler1.instance_variable_get(:@next_handler)).to eq(handler2)
+        end
+
+        it "returns the next handler" do
+          next_handler = handler1.next_handler(handler2)
+
+          expect(next_handler).to eq(handler2)
+        end
       end
 
-      it "sets the next handler" do
-        expect(handler1.instance_variable_get(:@next_handler)).to eq(handler2)
+      context "that is a block" do
+        let!(:block_handler) { handler1.next_handler { |request| request == true } }
+
+        it "sets the next handler" do
+          expect(handler1.instance_variable_get(:@next_handler)).to eq(block_handler)
+        end
+
+        it "be a ChainOfResponsibilityHandler" do
+          next_handler = handler1.next_handler { |request| request == true }
+
+          expect(next_handler).to be_kind_of(ChainOfResponsibilityHandler)
+        end
+
+        it "wraps the provided block" do
+          provided_block = proc { |request| request == true }
+          handler = handler1.next_handler(&provided_block)
+
+          wrapped_block = handler.instance_variable_get(:@block)
+
+          expect(wrapped_block).to eq(provided_block)
+        end
       end
+    end
 
-      it "returns the next handler" do
-        next_handler = handler1.next_handler(handler2)
-
-        expect(next_handler).to eq(handler2)
+    context "when given a handler and a block" do
+      it "raises an ArgumentError" do
+        expect do
+          handler1.next_handler(handler2) do |request|
+            request == true
+          end
+        end.to raise_error(ArgumentError, "Cannot provide both a handler and a block")
       end
     end
   end
@@ -91,6 +132,20 @@ RSpec.describe AllOverIt::Patterns::ChainOfResponsibility::ChainOfResponsibility
         it "returns nil" do
           expect(handler.handle(0)).to be_nil
         end
+      end
+    end
+
+    context "when given a block" do
+      it "returns the block result when the request handled" do
+        handler1.next_handler { |request| request.even? ? request : nil }
+
+        expect(handler1.handle(20)).to be(20)
+      end
+
+      it "returns nil when the block does not handle the request" do
+        handler1.next_handler { |request| request.even? ? request : nil }
+
+        expect(handler1.handle(21)).to be_nil
       end
     end
   end
