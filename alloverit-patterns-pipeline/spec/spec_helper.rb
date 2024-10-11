@@ -5,7 +5,7 @@ require "simplecov"
 SimpleCov.start do
   enable_coverage :branch
   add_filter "/spec/"
-  command_name "Patterns_Pipeline"
+  command_name "AOI_Patterns_Pipeline"
 end
 
 RSpec.configure do |config|
