@@ -9,7 +9,7 @@ RSpec.describe ChainOfResponsibilityHandler do
   let(:handler2) { DummyHandler2.new }
 
   it "does not allow access to BlockHandler" do
-    expect { ChainOfResponsibilityHandler::BlockHandler }.to raise_error(NameError, /private constant AllOverIt::Patterns::ChainOfResponsibility::ChainOfResponsibilityHandler::BlockHandler/)
+    expect { described_class::BlockHandler }.to raise_error(NameError, /private constant AllOverIt::Patterns::ChainOfResponsibility::ChainOfResponsibilityHandler::BlockHandler/)
   end
 
   describe "#initialize" do
