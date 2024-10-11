@@ -19,4 +19,4 @@ RSpec.configure do |config|
 end
 
 Dir[File.expand_path("../lib/**/*.rb", File.dirname(__FILE__))].sort.each { |f| require f }
-# Dir[File.expand_path("support/**/*.rb", File.dirname(__FILE__))].sort.each { |f| require f }
+Dir[File.expand_path("support/**/*.rb", File.dirname(__FILE__))].sort.each { |f| require f }

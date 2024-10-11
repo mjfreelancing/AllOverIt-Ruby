@@ -5,7 +5,7 @@ module AllOverIt
     module Pipeline
       class PipelineStep
         def call(input = nil)
-          raise NotImplementedError, "'#{self.class}' has not implemented '#{__method__}'."
+          raise NotImplementedError, "'#{self.class}' has not implemented '#{__method__}'"
         end
       end
     end
