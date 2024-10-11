@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 require "simplecov"
+
 SimpleCov.start do
   enable_coverage :branch
   add_filter "/spec/"
+  command_name "Patterns_Pipeline"
 end
 
 RSpec.configure do |config|
