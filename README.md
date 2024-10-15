@@ -9,3 +9,6 @@ Provides an implementation of the Pipeline design pattern.
 
 ## [alloverit-patterns-specification](alloverit-patterns-specification/README.md)
 Provides an implementation of the Specification design pattern.
+
+## [alloverit-utils](alloverit-utils/README.md)
+Provides general purpose utilities.
