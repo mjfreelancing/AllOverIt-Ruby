@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-PipelineStep = AllOverIt::Patterns::Pipeline::PipelineStep
-
 RSpec.describe AllOverIt::Patterns::Pipeline do
   it "has a version number" do
     expect(AllOverIt::Patterns::Pipeline::VERSION).not_to be nil
