@@ -19,10 +19,10 @@ end
 # Clean and Run tests before building/installing the gem via 'bundle exec rake install'
 task build: %i[clean spec]
 
-# task :demo1 do
-#   ruby "demos/demo1/demo1.rb"
-# end
-#
+task :demo1 do
+  ruby "demos/demo1/demo1.rb"
+end
+
 # task :demo2 do
 #   ruby "demos/demo2/demo2.rb"
 # end
