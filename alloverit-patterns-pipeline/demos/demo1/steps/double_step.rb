@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../../../lib/alloverit/patterns/pipeline/pipeline_step"
+require "alloverit/patterns/pipeline"
 
 module Demo1
   class DoubleStep < AllOverIt::Patterns::Pipeline::PipelineStep

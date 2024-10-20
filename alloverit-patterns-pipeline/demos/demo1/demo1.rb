@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../../lib/alloverit/patterns/pipeline"
+require "alloverit/patterns/pipeline"
 require_relative "steps/double_step"
 require_relative "steps/increment_step"
 require_relative "steps/square_step"
