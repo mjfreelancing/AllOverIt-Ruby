@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../../../lib/alloverit/patterns/specification"
-require_relative "../../../lib/alloverit/patterns/specification/composite_specification"
+require "alloverit/patterns/specification"
 
 module Demo2
   module Specifications
