@@ -1,0 +1,28 @@
+# frozen_string_literal: true
+
+require "bundler/gem_tasks"
+require "rspec/core/rake_task"
+
+RSpec::Core::RakeTask.new(:spec)
+
+require "rubocop/rake_task"
+
+RuboCop::RakeTask.new
+
+task default: %i[spec rubocop]
+
+# Cleanup task to remove old gem files before building
+task :clean do
+  rm_f Dir.glob("pkg/*.gem")
+end
+
+# Clean and Run tests before building/installing the gem via 'bundle exec rake install'
+task build: %i[clean spec]
+
+# task :demo1 do
+#   ruby "demos/demo1/demo1.rb"
+# end
+#
+# task :demo2 do
+#   ruby "demos/demo2/demo2.rb"
+# end
