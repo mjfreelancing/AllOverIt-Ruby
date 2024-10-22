@@ -13,6 +13,9 @@ module Demo1
 
         ::AllOverIt::Profiler.breadcrumb("Calculated #{number} * #{number - 1}! = #{result}")
 
+        # Introduce a brief delay just for the benefit of profiling
+        sleep(rand(0.02..0.04))
+
         result
       end
     end
