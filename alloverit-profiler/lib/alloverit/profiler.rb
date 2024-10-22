@@ -1,13 +1,14 @@
 module AllOverIt
   class Profiler
+    ProfileBreadcrumb = Struct.new(:message)
+
     class ProfileUnit
 
-      attr_reader :tag, :start_time, :end_time, :children, :breadcrumbs
+      attr_reader :tag, :start_time, :end_time, :children
 
       def initialize(tag)
         @tag = tag
         @children = []
-        @breadcrumbs = []
         @start_time = Time.now
       end
 
@@ -34,7 +35,6 @@ module AllOverIt
       raise StandardError, "The first profiler call must indicate it is the root" if @@root_unit.nil?
 
       unit = ProfileUnit.new(tag)
-      # @@root_unit ||= unit
       parent_unit = @@current_unit
       @@current_unit = unit
       result = yield
@@ -45,7 +45,7 @@ module AllOverIt
     end
 
     def self.breadcrumb(breadcrumb)
-      @@current_unit.breadcrumbs << breadcrumb
+      @@current_unit.children << ProfileBreadcrumb.new(breadcrumb)
     end
 
     def self.root
@@ -60,11 +60,20 @@ module AllOverIt
       private
 
       def accept_visitor_at_level(visitor, unit, level)
-        visitor.visit(unit, level) if level != -1 # ignore the root node
+        visit_unit(visitor, unit, level) if unit.is_a?(ProfileUnit)
+        visit_breadcrumb(visitor, unit, level) if unit.is_a?(ProfileBreadcrumb)
+      end
+
+      def visit_unit(visitor, unit, level)
+        visitor.visit_unit(unit, level) if level != -1 # ignore the root node
 
         unit.children.each do |child|
           accept_visitor_at_level(visitor, child, level + 1)
         end
+      end
+
+      def visit_breadcrumb(visitor, unit, level)
+        visitor.visit_breadcrumb(unit, level)
       end
     end
   end
@@ -74,21 +83,19 @@ module AllOverIt
       @logger = logger
     end
 
-    def visit(unit, level)
+    def visit_unit(unit, level)
       indent = "  " * level
       @logger.call("#{indent}#{unit.tag}: #{formatted_execution_time(unit)} ms")
+    end
 
-      return unless unit.breadcrumbs && !unit.breadcrumbs.empty?
-
-      unit.breadcrumbs.each do |message|
-        @logger.call("  #{indent}=> #{message}")
-      end
+    def visit_breadcrumb(breadcrumb, level)
+      indent = "  " * level
+      @logger.call("#{indent}=> #{breadcrumb.message}")
     end
 
     private
 
     def formatted_execution_time(unit)
-      # execution_time = unit.end_time ? (unit.end_time - unit.start_time) * 1000 : 0
       execution_time = (unit.end_time - unit.start_time) * 1000
       format("%0.3f", execution_time)
     end

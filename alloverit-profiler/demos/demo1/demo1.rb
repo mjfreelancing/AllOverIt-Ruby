@@ -6,9 +6,12 @@ module Demo1
   class << self
     def factorial(number)
       ::AllOverIt::Profiler.call("Input #{number}") do
+
+        ::AllOverIt::Profiler.breadcrumb("Calculating #{number} * #{number - 1}!")
+
         result = number <= 1 ? 1 : number + factorial(number - 1)
 
-        ::AllOverIt::Profiler.breadcrumb("#{number} * #{number - 1}! = #{result}")
+        ::AllOverIt::Profiler.breadcrumb("Calculated #{number} * #{number - 1}! = #{result}")
 
         result
       end
