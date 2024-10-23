@@ -8,6 +8,10 @@ module Demo2
       def satisfied_by?(chilli)
         chilli.scoville_range.upper < 10_000
       end
+
+      def to_s
+        "is mild"
+      end
     end
   end
 end

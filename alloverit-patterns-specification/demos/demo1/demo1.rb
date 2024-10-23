@@ -12,6 +12,9 @@ module Demo1
 
   combined_spec = even_spec.and(less_than_twenty_spec)
 
+  puts "Specification: #{combined_spec}"
+  puts
+
   numbers = [10, 15, 20, 22, 8]
 
   numbers.each do |number|

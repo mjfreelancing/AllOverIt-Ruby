@@ -16,6 +16,10 @@ module AllOverIt
         def satisfied_by?(candidate)
           @left.satisfied_by?(candidate) || !@right.satisfied_by?(candidate)
         end
+
+        def to_s
+          "(#{@left} or not (#{@right})"
+        end
       end
     end
   end

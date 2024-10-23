@@ -10,8 +10,13 @@ module Demo2
 
         @color = color.downcase
       end
+
       def satisfied_by?(chilli)
         chilli.colors.any? { |color| color.downcase == @color }
+      end
+
+      def to_s
+        "color is #{@color}"
       end
     end
   end

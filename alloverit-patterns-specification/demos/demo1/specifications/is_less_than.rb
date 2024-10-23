@@ -13,6 +13,10 @@ module Demo1
       def satisfied_by?(candidate)
         candidate.is_a?(Integer) && candidate < @upper_bound
       end
+
+      def to_s
+        "candidate < #{@upper_bound}"
+      end
     end
   end
 end

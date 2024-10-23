@@ -53,6 +53,10 @@ module AllOverIt
       def not
         NotSpecification.new(self)
       end
+
+      def to_s
+        raise NotImplementedError, "You must implement #to_s"
+      end
     end
   end
 end

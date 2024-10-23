@@ -10,8 +10,13 @@ module Demo2
 
         @origin = origin.downcase
       end
+
       def satisfied_by?(chilli)
         chilli.origin.downcase == @origin
+      end
+
+      def to_s
+        "origin is #{@origin}"
       end
     end
   end

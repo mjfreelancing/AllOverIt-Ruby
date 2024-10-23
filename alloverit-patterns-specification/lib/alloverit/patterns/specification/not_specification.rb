@@ -15,6 +15,10 @@ module AllOverIt
         def satisfied_by?(candidate)
           !@specification.satisfied_by?(candidate)
         end
+
+        def to_s
+          "not (#{@specification})"
+        end
       end
     end
   end

@@ -8,6 +8,10 @@ module Demo1
       def satisfied_by?(candidate)
         candidate.is_a?(Integer) && candidate.even?
       end
+
+      def to_s
+        "candidate.even?"
+      end
     end
   end
 end
