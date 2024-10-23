@@ -2,7 +2,7 @@ module AllOverIt
   class Profiler
     ProfileBreadcrumb = Struct.new(:message)
 
-    class ProfileUnit
+    class ProfileNode
 
       attr_reader :tag, :start_time, :end_time, :children
 
@@ -12,9 +12,9 @@ module AllOverIt
         @start_time = Time.now
       end
 
-      def completed(parent_unit)
+      def completed(parent_node)
         @end_time = Time.now
-        parent_unit.children << self unless parent_unit.nil?
+        parent_node.children << self unless parent_node.nil?
       end
 
       # def children
@@ -22,52 +22,52 @@ module AllOverIt
       # end
     end
 
-    private_constant :ProfileUnit
+    private_constant :ProfileNode
 
     def self.call(tag, root: false)
       @is_root = root
 
       if @is_root
-        @@root_unit = ProfileUnit.new("root")
-        @@current_unit = @@root_unit
+        @@root_node = ProfileNode.new("root")
+        @@current_node = @@root_node
       end
 
-      raise StandardError, "The first profiler call must indicate it is the root" if @@root_unit.nil?
+      raise StandardError, "The first profiler call must indicate it is the root" if @@root_node.nil?
 
-      unit = ProfileUnit.new(tag)
-      parent_unit = @@current_unit
-      @@current_unit = unit
+      unit = ProfileNode.new(tag)
+      parent_unit = @@current_node
+      @@current_node = unit
       result = yield
       unit.completed(parent_unit)
-      @@current_unit = parent_unit
-      @@root_unit.completed(nil) if root
+      @@current_node = parent_unit
+      @@root_node.completed(nil) if root
       result
     end
 
     def self.breadcrumb(breadcrumb)
-      @@current_unit.children << ProfileBreadcrumb.new(breadcrumb)
+      @@current_node.children << ProfileBreadcrumb.new(breadcrumb)
     end
 
     def self.root
-      @@root_unit
+      @@root_node
     end
 
-    def self.accept_visitor(visitor, unit: root)
-      accept_visitor_at_level(visitor, unit, -1)
+    def self.accept_visitor(visitor, node: root)
+      accept_visitor_at_level(visitor, node, -1)
     end
 
     class << self
       private
 
-      def accept_visitor_at_level(visitor, unit, level)
-        visit_unit(visitor, unit, level) if unit.is_a?(ProfileUnit)
-        visit_breadcrumb(visitor, unit, level) if unit.is_a?(ProfileBreadcrumb)
+      def accept_visitor_at_level(visitor, node, level)
+        visit_node(visitor, node, level) if node.is_a?(ProfileNode)
+        visit_breadcrumb(visitor, node, level) if node.is_a?(ProfileBreadcrumb)
       end
 
-      def visit_unit(visitor, unit, level)
-        visitor.visit_unit(unit, level) if level != -1 # ignore the root node
+      def visit_node(visitor, node, level)
+        visitor.visit_node(node, level) if level != -1 # ignore the root node
 
-        unit.children.each do |child|
+        node.children.each do |child|
           accept_visitor_at_level(visitor, child, level + 1)
         end
       end
@@ -78,14 +78,14 @@ module AllOverIt
     end
   end
 
-  class DefaultProfilerVisitor
+  class DefaultProfileVisitor
     def initialize(logger: method(:puts))
       @logger = logger
     end
 
-    def visit_unit(unit, level)
+    def visit_node(node, level)
       indent = "  " * level
-      @logger.call("#{indent}#{unit.tag}: #{formatted_execution_time(unit)} ms")
+      @logger.call("#{indent}#{node.tag}: #{formatted_execution_time(node)} ms")
     end
 
     def visit_breadcrumb(breadcrumb, level)
@@ -95,8 +95,8 @@ module AllOverIt
 
     private
 
-    def formatted_execution_time(unit)
-      execution_time = (unit.end_time - unit.start_time) * 1000
+    def formatted_execution_time(node)
+      execution_time = (node.end_time - node.start_time) * 1000
       format("%0.3f", execution_time)
     end
   end

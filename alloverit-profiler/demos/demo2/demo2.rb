@@ -44,7 +44,7 @@ module Demo2
   puts "Sort Breakdown:"
   puts "==============="
 
-  visitor = ::AllOverIt::DefaultProfilerVisitor.new(logger: method(:puts))
+  visitor = ::AllOverIt::DefaultProfileVisitor.new(logger: method(:puts))
   ::AllOverIt::Profiler.accept_visitor(visitor)
 
 end

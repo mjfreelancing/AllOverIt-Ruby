@@ -31,6 +31,6 @@ module Demo1
   puts "Calculation breakdown:"
   puts "======================"
 
-  visitor = ::AllOverIt::DefaultProfilerVisitor.new(logger: method(:puts))
+  visitor = ::AllOverIt::DefaultProfileVisitor.new(logger: method(:puts))
   ::AllOverIt::Profiler.accept_visitor(visitor)
 end
