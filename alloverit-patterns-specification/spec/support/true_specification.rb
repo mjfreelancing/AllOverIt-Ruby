@@ -6,4 +6,8 @@ class TrueSpecification < ::AllOverIt::Patterns::Specification::CompositeSpecifi
   def satisfied_by?(_)
     true
   end
+
+  def to_s
+    "true"
+  end
 end

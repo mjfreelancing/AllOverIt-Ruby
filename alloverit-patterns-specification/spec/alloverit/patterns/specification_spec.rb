@@ -99,6 +99,16 @@ module AllOverIt
             expect(result).to be_an_instance_of(NotSpecification)
           end
         end
+
+        describe "#to_s?" do
+          let(:spec) { DummyBadImplementationSpecification.new }
+
+          it "raises NotImplementedError when #to_s not implemented" do
+            expect { spec.to_s }.to(
+              raise_error(NotImplementedError, "You must implement #to_s")
+            )
+          end
+        end
       end
     end
   end

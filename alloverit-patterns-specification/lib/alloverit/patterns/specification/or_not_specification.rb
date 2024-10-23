@@ -18,7 +18,7 @@ module AllOverIt
         end
 
         def to_s
-          "(#{@left} or not (#{@right})"
+          "(#{@left} or not (#{@right}))"
         end
       end
     end

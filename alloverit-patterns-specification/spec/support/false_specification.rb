@@ -6,4 +6,8 @@ class FalseSpecification < ::AllOverIt::Patterns::Specification::CompositeSpecif
   def satisfied_by?(_)
     false
   end
+
+  def to_s
+    "false"
+  end
 end

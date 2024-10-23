@@ -116,6 +116,13 @@ module AllOverIt
             end
           end
         end
+
+        describe "#to_s" do
+          it "returns the string representation of the specification" do
+            expect(true_spec.to_s).to be("true")
+            expect(true_spec.and(false_spec).to_s).to eq("(true and false)")
+          end
+        end
       end
     end
   end
