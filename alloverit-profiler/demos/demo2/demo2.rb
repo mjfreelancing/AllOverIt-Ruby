@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "alloverit/profiler"
+require "alloverit/profiler/default_visitor"
 
 module Demo2
   class << self
@@ -8,11 +9,11 @@ module Demo2
       n = arr.length
 
       (n - 1).times do |i|
-        ::AllOverIt::Profiler.call("Pass #{i + 1}") do
+        ::AllOverIt::Profiler.track("Pass #{i + 1}") do
           swapped = false
 
           (n - i - 1).times do |j|
-            ::AllOverIt::Profiler.call("Comparing elements at positions #{j} and #{j + 1}") do
+            ::AllOverIt::Profiler.track("Comparing elements at positions #{j} and #{j + 1}") do
               if arr[j] > arr[j + 1]
                 ::AllOverIt::Profiler.breadcrumb("Swapping elements #{arr[j]} and #{arr[j + 1]}")
                 arr[j], arr[j + 1] = arr[j + 1], arr[j]
@@ -32,19 +33,33 @@ module Demo2
         end
       end
     end
+
+    def profile_bubble_sort(arr)
+      ::AllOverIt::Profiler.track("Bubble sort the array: #{arr.inspect}") do
+        bubble_sort(arr) # mutates the array
+      end
+    end
+
+    def show_profile
+      puts
+      puts "Sort Breakdown:"
+      puts "==============="
+
+      visitor = ::AllOverIt::Profiler::DefaultVisitor.new(logger: method(:puts))
+      ::AllOverIt::Profiler.accept_visitor(visitor)
+    end
   end
 
-  arr = [64, 34, 25, 12, 22, 11, 90]
-
-  ::AllOverIt::Profiler.call("Bubble sort the array: #{arr.inspect}", root: true) do
-    bubble_sort(arr) # mutates the array
+  # Will use default options, including using "Default" for the key lookup,
+  # and will not automatically cleanup the profile data
+  ::AllOverIt::Profiler.start do
+    arr = [64, 34, 25, 12, 22, 11, 90]
+    profile_bubble_sort(arr)
   end
 
-  puts
-  puts "Sort Breakdown:"
-  puts "==============="
+  # Doing this outside the scope of #start to show the data is still available
+  show_profile
 
-  visitor = ::AllOverIt::DefaultProfileVisitor.new(logger: method(:puts))
-  ::AllOverIt::Profiler.accept_visitor(visitor)
-
+  # Optional since the app is finished
+  ::AllOverIt::Profiler.cleanup
 end

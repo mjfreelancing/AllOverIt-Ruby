@@ -1,80 +1,58 @@
+# frozen_string_literal: true
+
+require_relative "profiler/profiler_root"
+
 module AllOverIt
-  class Profiler
-    ProfileBreadcrumb = Struct.new(:message)
+  module Profiler
+    @cache = {}
 
-    class ProfileNode
+    # Use of this method is optional. if used, it relies on :key_lookup of :cleanup is true
+    def self.start(options = {}, &block)
+      raise ArgumentError, "A block must be provided to track" unless block_given?
 
-      attr_reader :tag, :start_time, :end_time, :children
+      options[:cleanup] ||= false
+      options[:key_lookup] ||= -> { "default" }
 
-      def initialize(tag)
-        @tag = tag
-        @children = []
-        @start_time = Time.now
-      end
+      @options = options
 
-      def completed(parent_node)
-        @end_time = Time.now
-        parent_node.children << self unless parent_node.nil?
-      end
+      block.call
 
-      # def children
-      #   @children.map(&:freeze).freeze
-      # end
+      cleanup if options[:cleanup]
     end
 
-    private_constant :ProfileNode
+    # In the methods below, aAllowing the caller to provide a lookup key provides flexibility
 
-    def self.call(tag, root: false)
-      @is_root = root
-
-      if @is_root
-        @@root_node = ProfileNode.new("root")
-        @@current_node = @@root_node
-      end
-
-      raise StandardError, "The first profiler call must indicate it is the root" if @@root_node.nil?
-
-      unit = ProfileNode.new(tag)
-      parent_unit = @@current_node
-      @@current_node = unit
-      result = yield
-      unit.completed(parent_unit)
-      @@current_node = parent_unit
-      @@root_node.completed(nil) if root
-      result
+    def self.cleanup(lookup_key: nil)
+      key = lookup_key || @options[:key_lookup].call
+      @cache.delete(key)
     end
 
-    def self.breadcrumb(breadcrumb)
-      @@current_node.children << ProfileBreadcrumb.new(breadcrumb)
+    def self.track(tag, lookup_key: nil, &block)
+      raise ArgumentError, "A block must be provided to track" unless block_given?
+
+      key = lookup_key || @options[:key_lookup].call
+
+      @cache[key] ||= ProfilerRoot.new
+
+      @cache[key].call(tag) do
+        block.call
+      end
     end
 
-    def self.root
-      @@root_node
+    def self.breadcrumb(lookup_key = nil, message)
+      key = lookup_key || @options[:key_lookup].call
+
+      raise KeyError, "No profiler found for key: #{key}" unless @cache.key?(key)
+
+      @cache[key].breadcrumb(message)
     end
 
-    def self.accept_visitor(visitor, node: root)
-      accept_visitor_at_level(visitor, node, -1)
-    end
+    def self.accept_visitor(lookup_key = nil, visitor, node: nil)
+      key = lookup_key || @options[:key_lookup].call
 
-    class << self
-      private
+      raise KeyError, "No profiler found for key: #{key}" unless @cache.key?(key)
 
-      def accept_visitor_at_level(visitor, node, level)
-        visit_node(visitor, node, level) if node.is_a?(ProfileNode)
-        visit_breadcrumb(visitor, node, level) if node.is_a?(ProfileBreadcrumb)
-      end
-
-      def visit_node(visitor, node, level)
-        visitor.visit_node(node, level) if level != -1 # ignore the root node
-
-        node.children.each do |child|
-          accept_visitor_at_level(visitor, child, level + 1)
-        end
-      end
-
-      def visit_breadcrumb(visitor, unit, level)
-        visitor.visit_breadcrumb(unit, level)
-      end
+      @cache[key].accept_visitor(visitor, node)
     end
   end
 end
