@@ -20,7 +20,7 @@ module AllOverIt
       cleanup if options[:cleanup]
     end
 
-    # In the methods below, aAllowing the caller to provide a lookup key provides flexibility
+    # In the methods below, allowing the caller to provide a lookup key provides flexibility
 
     def self.cleanup(lookup_key: nil)
       key = lookup_key || @options[:key_lookup].call
