@@ -30,10 +30,6 @@ module AllOverIt
         @current_node.add_child(node)
       end
 
-      # def root
-      #   @root_node
-      # end
-
       def accept_visitor(visitor, node)
         accept_visitor_at_level(visitor, node || @root_node, -1)
       end

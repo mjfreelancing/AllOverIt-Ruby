@@ -15,17 +15,14 @@ module AllOverIt
 
       @options = options
 
-      block.call
+      result = block.call
 
       cleanup if options[:cleanup]
+
+      result
     end
 
     # In the methods below, allowing the caller to provide a lookup key provides flexibility
-
-    def self.cleanup(lookup_key: nil)
-      key = lookup_key || @options[:key_lookup].call
-      @cache.delete(key)
-    end
 
     def self.track(tag, lookup_key: nil, &block)
       raise ArgumentError, "A block must be provided to track" unless block_given?
@@ -45,6 +42,11 @@ module AllOverIt
       raise KeyError, "No profiler found for key: #{key}" unless @cache.key?(key)
 
       @cache[key].breadcrumb(message)
+    end
+
+    def self.cleanup(lookup_key: nil)
+      key = lookup_key || @options[:key_lookup].call
+      @cache.delete(key)
     end
 
     def self.accept_visitor(lookup_key = nil, visitor, node: nil)

@@ -9,7 +9,7 @@ module AllOverIt
 
       def visit_node(node, level)
         indent = "  " * level
-        @logger.call("#{indent}#{node.tag}: #{formatted_execution_time(node)} ms")
+        @logger.call("#{indent}#{node.tag}: #{formatted_execution_time(node)}ms")
       end
 
       def visit_breadcrumb(breadcrumb, level)
