@@ -4,7 +4,7 @@ require_relative "lib/alloverit/profiler/version"
 
 Gem::Specification.new do |spec|
   spec.name = "alloverit-profiler"
-  spec.version = Alloverit::Profiler::VERSION
+  spec.version = AllOverIt::Profiler::VERSION
   spec.authors = ["Malcolm Smith"]
   spec.email = ["malcolm@mjfreelancing.com"]
 

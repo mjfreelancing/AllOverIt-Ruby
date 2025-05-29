@@ -11,3 +11,7 @@ group :development, :test do
   gem "rubocop", "~> 1.21"
   gem "simplecov", require: false
 end
+
+# For local development, this tells Bundler to use your local copy of alloverit-utils and alloverit-patterns-specification.
+# When the gem is published, the Gemfile is not included in the published gem — only the gemspec matters for consumers.
+gem "alloverit-utils", path: "../alloverit-utils"
