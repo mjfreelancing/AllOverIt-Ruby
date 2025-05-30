@@ -1,34 +1,128 @@
-# Alloverit::Profiler
+# AllOverIt::Profiler
 
-TODO: Delete this and the text below, and describe your gem
+AllOverIt::Profiler is a flexible and lightweight Ruby gem for profiling and tracking the execution of code blocks, including nested operations and custom breadcrumbs. It is designed to help you analyze performance and execution flow in your Ruby applications.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/alloverit/profiler`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Features
 
-## Installation
+- Profile code blocks with custom tags
+- Track nested operations and execution hierarchy
+- Add breadcrumbs (custom messages) during profiling
+- Retrieve and analyze profiling results programmatically
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+## Setup & Installation
 
-Install the gem and add to the application's Gemfile by executing:
-
-```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
-```
-
-If bundler is not being used to manage dependencies, install the gem by executing:
+To set up all dependencies for every gem in this repository, run the following from the root:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+ruby setup_all.rb
 ```
 
-## Usage
+Alternatively, you can set up just this gem by running:
 
-TODO: Write usage instructions here
+```bash
+cd alloverit-profiler
+bin/setup
+```
 
-## Development
+Add the gem to your application's Gemfile:
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```bash
+bundle add alloverit-profiler
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Or install it manually:
+
+```bash
+gem install alloverit-profiler
+```
+
+## Usage Example
+
+Profile a block of code and its nested operations:
+
+```ruby
+require 'alloverit/profiler'
+
+AllOverIt::Profiler.start do
+  AllOverIt::Profiler.track('outer') do
+    sleep(0.1)
+    AllOverIt::Profiler.track('inner') do
+      sleep(0.2)
+      AllOverIt::Profiler.breadcrumb(nil, 'Reached inner block')
+    end
+  end
+end
+```
+
+You can add breadcrumbs at any point to mark significant events:
+
+```ruby
+AllOverIt::Profiler.breadcrumb(nil, 'Custom event message')
+```
+
+## Demos
+
+Demo applications are located in the `demos/` directory. To run a demo:
+
+```bash
+cd demos/demo1
+ruby demo1.rb
+```
+
+or
+
+```bash
+cd demos/demo2
+ruby demo2.rb
+```
+
+## Running Tests
+
+To run tests for this gem only:
+
+```bash
+cd alloverit-profiler
+bundle exec rake spec
+```
+
+To run all tests for every gem in the repository:
+
+```bash
+ruby run_all_tests.rb
+```
+
+## Coverage Reports
+
+After running tests, open the following file in your browser to view the coverage report for this gem:
+
+```
+alloverit-profiler/coverage/index.html
+```
+
+For a combined coverage report across all gems, see:
+
+```
+coverage/combined/index.html
+```
+
+## Rake Tasks
+
+The following Rake tasks are available for development and testing:
+
+- `rake spec` – Run the test suite using RSpec.
+- `rake rubocop` – Run RuboCop for code linting and style checks.
+- `rake clean` – Remove old gem files from the `pkg/` directory.
+- `rake build` – Clean, then run tests before building/installing the gem (used by `bundle exec rake install`).
+- `rake demo1` – Run the demo application in `demos/demo1/demo1.rb`.
+- `rake demo2` – Run the demo application in `demos/demo2/demo2.rb`.
+- `rake coverage` – Open the coverage report for this gem in your default browser (macOS/Linux) or print the path if not supported.
+- `rake` (default) – Runs both `spec` and `rubocop` tasks.
+
+You can list all available tasks by running:
+
+```zsh
+rake -T
+```
 
 ## License
 
