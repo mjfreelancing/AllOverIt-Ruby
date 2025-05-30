@@ -1,34 +1,134 @@
 # AllOverIt::Patterns::Pipeline
 
-TODO: Delete this and the text below, and describe your gem
+This gem provides an implementation of the Pipeline design pattern for Ruby. The Pipeline pattern allows you to compose a sequence of processing steps (stages), where the output of one stage is the input to the next. This is useful for building flexible, reusable, and testable data processing flows.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/alloverit/patterns/pipeline`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Features
 
-## Installation
+- Compose pipelines from modular stages (as classes or blocks)
+- Dynamically build and modify pipelines at runtime
+- Clean separation of processing logic
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+## Setup & Installation
 
-Install the gem and add to the application's Gemfile by executing:
-
-```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
-```
-
-If bundler is not being used to manage dependencies, install the gem by executing:
+To set up all dependencies for every gem in this repository, run the following from the root:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+ruby setup_all.rb
 ```
 
-## Usage
+Alternatively, you can set up just this gem by running:
 
-TODO: Write usage instructions here
+```bash
+cd alloverit-patterns-pipeline
+bin/setup
+```
 
-## Development
+Add the gem to your application's Gemfile:
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+```bash
+bundle add alloverit-patterns-pipeline
+```
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+Or install it manually:
+
+```bash
+gem install alloverit-patterns-pipeline
+```
+
+## Usage Example
+
+Suppose you want to process a string through several transformation steps:
+
+```ruby
+class UpcaseStage
+  def call(input)
+    input.upcase
+  end
+end
+
+class ReverseStage
+  def call(input)
+    input.reverse
+  end
+end
+
+pipeline = AllOverIt::Patterns::Pipeline.new
+pipeline.add_stage(UpcaseStage.new)
+pipeline.add_stage(ReverseStage.new)
+
+result = pipeline.execute('hello')
+puts result # => "OLLEH"
+```
+
+You can also use blocks as stages:
+
+```ruby
+pipeline.add_stage(->(input) { "#{input}!" })
+```
+
+## Demos
+
+Demo applications are located in the `demos/` directory. To run a demo:
+
+```bash
+cd demos/demo1
+ruby demo1.rb
+```
+
+or
+
+```bash
+cd demos/demo2
+ruby demo2.rb
+```
+
+## Running Tests
+
+To run tests for this gem only:
+
+```bash
+cd alloverit-patterns-pipeline
+bundle exec rake spec
+```
+
+To run all tests for every gem in the repository:
+
+```bash
+ruby run_all_tests.rb
+```
+
+## Coverage Reports
+
+After running tests, open the following file in your browser to view the coverage report for this gem:
+
+```
+alloverit-patterns-pipeline/coverage/index.html
+```
+
+For a combined coverage report across all gems, see:
+
+```
+coverage/combined/index.html
+```
+
+## Rake Tasks
+
+The following Rake tasks are available for development and testing:
+
+- `rake spec` – Run the test suite using RSpec.
+- `rake rubocop` – Run RuboCop for code linting and style checks.
+- `rake clean` – Remove old gem files from the `pkg/` directory.
+- `rake build` – Clean, then run tests before building/installing the gem (used by `bundle exec rake install`).
+- `rake demo1` – Run the demo application in `demos/demo1/demo1.rb`.
+- `rake demo2` – Run the demo application in `demos/demo2/demo2.rb`.
+- `rake coverage` – Open the coverage report for this gem in your default browser (macOS/Linux) or print the path if not supported.
+- `rake` (default) – Runs both `spec` and `rubocop` tasks.
+
+You can list all available tasks by running:
+
+```zsh
+rake -T
+```
 
 ## License
 

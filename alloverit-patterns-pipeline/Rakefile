@@ -26,3 +26,18 @@ end
 task :demo2 do
   ruby "demos/demo2/demo2.rb"
 end
+
+task :coverage do
+  coverage_path = File.expand_path("coverage/index.html", __dir__)
+  if File.exist?(coverage_path)
+    if RUBY_PLATFORM =~ /darwin/
+      system("open", coverage_path)
+    elsif RUBY_PLATFORM =~ /linux/
+      system("xdg-open", coverage_path)
+    else
+      puts "Coverage report generated at: #{coverage_path}"
+    end
+  else
+    puts "Coverage report not found. Run tests to generate it."
+  end
+end
