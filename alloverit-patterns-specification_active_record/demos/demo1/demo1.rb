@@ -3,33 +3,10 @@
 require 'active_record'
 require 'sqlite3'
 require_relative "../../lib/alloverit/patterns/specification_active_record/specification_scopeable"
+require_relative "models/number"
+require_relative "db_setup"
 require_relative "specifications/is_even_number"
 require_relative "specifications/is_less_than"
-
-# Setup in-memory database
-ActiveRecord::Base.establish_connection(
-  adapter: 'sqlite3',
-  database: ':memory:'
-)
-
-# Define schema
-ActiveRecord::Schema.define do
-  create_table :numbers, force: true do |t|
-    t.integer :value
-  end
-end
-
-# Define model
-class Number < ActiveRecord::Base
-  include AllOverIt::Patterns::SpecificationActiveRecord::SpecificationScopeable
-end
-
-# Define specifications
-EvenNumberSpecification = Demo1::Specifications::IsEvenNumber
-LessThanSpecification = Demo1::Specifications::IsLessThan
-
-# Seed data
-(1..25).each { |n| Number.create!(value: n) }
 
 puts
 puts
@@ -40,9 +17,12 @@ puts 'DATABASE Querying (scoped_to)'
 puts '-----------------------------'
 puts
 
+EvenNumber = Demo1::Specifications::IsEvenNumber
+LessThan = Demo1::Specifications::IsLessThan
+
 # Create initial specifications
-even_spec = EvenNumberSpecification.new
-less_than_twenty_spec = LessThanSpecification.new(20)
+even_spec = EvenNumber.new
+less_than_twenty_spec = LessThan.new(20)
 combined_spec = even_spec.and(less_than_twenty_spec)
 negated_spec = combined_spec.not
 
