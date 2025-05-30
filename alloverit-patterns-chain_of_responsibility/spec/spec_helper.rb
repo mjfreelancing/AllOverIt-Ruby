@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 require "simplecov"
-
 SimpleCov.start do
-  enable_coverage :branch
+  track_files "lib/**/*.rb"
   add_filter "/spec/"
-  command_name "AOI_Patterns_ChainOfResponsibility"
 end
 
 RSpec.configure do |config|
