@@ -1,0 +1,14 @@
+module AllOverIt
+  module Patterns
+    class AndNotSpecificationActiveRecord
+      include SpecificationActiveRecord
+      @left: SpecificationActiveRecord
+      @right: SpecificationActiveRecord
+
+      def initialize: (left: SpecificationActiveRecord, right: SpecificationActiveRecord) -> AndNotSpecificationActiveRecord
+      def satisfied_by?: (candidate: untyped) -> bool
+      def to_scope: (relation: untyped) -> untyped
+      def to_s: () -> String
+    end
+  end
+end

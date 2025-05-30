@@ -1,0 +1,22 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+
+# Specify your gem's dependencies in alloverit-patterns-specification_active_record.gemspec
+gemspec
+
+group :development, :test do
+  gem "rake", "~> 13.0"
+  gem "rspec", "~> 3.0"
+  gem "rubocop", "~> 1.21"
+  gem "simplecov", require: false
+  gem "sqlite3"
+  gem "database_cleaner-active_record"
+end
+
+gem "activerecord"
+
+# For local development, this tells Bundler to use your local copy of alloverit-utils and alloverit-patterns-specification.
+# When the gem is published, the Gemfile is not included in the published gem — only the gemspec matters for consumers.
+gem "alloverit-utils", path: "../alloverit-utils"
+gem "alloverit-patterns-specification", path: "../alloverit-patterns-specification"
