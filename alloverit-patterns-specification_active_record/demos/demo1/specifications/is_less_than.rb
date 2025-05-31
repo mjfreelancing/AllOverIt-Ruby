@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "alloverit/patterns/specification_active_record"
+require "alloverit/patterns/specification_active_record/arel_helpers"
 
 module Demo1
   module Specifications
@@ -15,7 +16,7 @@ module Demo1
       end
 
       def to_arel(table)
-        table[:value].lt(@threshold)
+        ArelHelpers.less_than(table[:value], @threshold)
       end
 
       def to_s

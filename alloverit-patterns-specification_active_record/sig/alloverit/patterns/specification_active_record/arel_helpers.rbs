@@ -1,0 +1,31 @@
+module AllOverIt::Patterns::SpecificationActiveRecord::ArelHelpers
+  def self.modulo: (untyped, untyped) -> untyped
+  def self.like: (untyped, untyped) -> untyped
+  def self.like_insensitive: (untyped, untyped) -> untyped
+  def self.equals: (untyped, untyped) -> untyped
+  def self.equals_insensitive: (untyped, untyped) -> untyped
+  def self.less_than: (untyped, untyped) -> untyped
+  def self.less_than_or_equal: (untyped, untyped) -> untyped
+  def self.greater_than: (untyped, untyped) -> untyped
+  def self.greater_than_or_equal: (untyped, untyped) -> untyped
+  def self.not_equal: (untyped, untyped) -> untyped
+  def self.in: (untyped, untyped) -> untyped
+  def self.not_in: (untyped, untyped) -> untyped
+  def self.between: (untyped, untyped, untyped) -> untyped
+  def self.is_null: (untyped) -> untyped
+  def self.is_not_null: (untyped) -> untyped
+  def self.regex: (untyped, untyped) -> untyped
+  def self.not_regex: (untyped, untyped) -> untyped
+  def self.does_not_match: (untyped, untyped) -> untyped
+  def self.does_not_match_insensitive: (untyped, untyped) -> untyped
+  def self.equals_all: (untyped, untyped) -> untyped
+  def self.not_equals_all: (untyped, untyped) -> untyped
+  def self.equals_any: (untyped, untyped) -> untyped
+  def self.not_equals_any: (untyped, untyped) -> untyped
+  def self.like_all: (untyped, untyped) -> untyped
+  def self.like_any: (untyped, untyped) -> untyped
+  def self.does_not_match_all: (untyped, untyped) -> untyped
+  def self.does_not_match_any: (untyped, untyped) -> untyped
+  def self.in_any: (untyped, untyped) -> untyped
+  def self.in_all: (untyped, untyped) -> untyped
+end

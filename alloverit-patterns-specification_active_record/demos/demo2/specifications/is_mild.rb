@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "alloverit/patterns/specification_active_record"
+require "alloverit/patterns/specification_active_record/arel_helpers"
 
 module Demo2
   module Specifications
@@ -10,7 +11,7 @@ module Demo2
       end
 
       def to_arel(table)
-        table[:scoville_upper].lt(10_000)
+        ArelHelpers.less_than(table[:scoville_upper], 10_000)
       end
 
       def to_s

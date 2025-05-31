@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "alloverit/patterns/specification_active_record"
+require "alloverit/patterns/specification_active_record/arel_helpers"
 
 module Demo1
   module Specifications
@@ -11,7 +12,7 @@ module Demo1
       end
 
       def to_arel(table)
-        Arel::Nodes::NamedFunction.new('MOD', [table[:value], 2]).eq(0)
+        ArelHelpers.modulo(table[:value], 2).eq(0)
       end
 
       def to_s

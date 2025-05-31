@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "alloverit/patterns/specification_active_record"
+require "alloverit/patterns/specification_active_record/arel_helpers"
 
 module Demo2
   module Specifications
@@ -14,7 +15,7 @@ module Demo2
       end
 
       def to_arel(table)
-        table[:origin].lower.eq(@origin)
+        ArelHelpers.equals_insensitive(table[:origin], @origin)
       end
 
       def to_s
