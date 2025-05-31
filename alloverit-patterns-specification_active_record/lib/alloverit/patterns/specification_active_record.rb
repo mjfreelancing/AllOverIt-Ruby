@@ -5,6 +5,8 @@ require_relative "specification_active_record/and_not_specification_active_recor
 require_relative "specification_active_record/or_specification_active_record"
 require_relative "specification_active_record/or_not_specification_active_record"
 require_relative "specification_active_record/not_specification_active_record"
+require_relative "specification_active_record/always_true_specification_active_record"
+require_relative "specification_active_record/always_false_specification_active_record"
 require "alloverit/patterns/specification"
 require "alloverit/utils"
 
@@ -93,6 +95,16 @@ module AllOverIt
       # @raise [NotImplementedError] If not implemented in a subclass.
       def to_s
         raise NotImplementedError, "You must implement #to_s"
+      end
+
+      # Returns a new instance of a specification that is always true.
+      def self.always_true
+        AlwaysTrueSpecificationActiveRecord.new
+      end
+
+      # Returns a new instance of a specification that is always false.
+      def self.always_false
+        AlwaysFalseSpecificationActiveRecord.new
       end
     end
   end

@@ -1,12 +1,22 @@
 # AllOverIt::Patterns::SpecificationActiveRecord
 
-This gem extends the Specification pattern to work seamlessly with ActiveRecord models. It allows you to compose business rules as specifications and apply them directly to database queries, as well as in-memory objects.
+This gem extends the [AllOverIt::Patterns::Specification](../alloverit-patterns-specification/README.md) pattern to work seamlessly with ActiveRecord models. It allows you to compose business rules as specifications and apply them directly to database queries, as well as in-memory objects. This package builds on the core Specification gem, adding robust Arel-based SQL composition, ActiveRecord integration, and a suite of helpers for advanced, composable, and database-agnostic querying.
 
 ## Features
 
-- Compose complex query logic using specifications
-- Use the same specification for both ActiveRecord queries and in-memory filtering
-- Integrates with ActiveRecord via a `scoped_to` method
+- Compose complex query logic using specifications, with full support for AND, OR, NOT, and custom combinators
+- Use the same specification for both ActiveRecord queries (SQL) and in-memory filtering (Ruby)
+- Integrates with ActiveRecord via a `scoped_to` method for easy application of specifications to queries
+- Provides a rich set of ArelHelpers for safe, portable, and expressive SQL predicate construction (e.g., case-insensitive LIKE, regex, modulo, etc.)
+- Supports chaining and composition of specifications for highly readable and maintainable business logic
+- Fully compatible with the non-ActiveRecord [AllOverIt::Patterns::Specification](../alloverit-patterns-specification/README.md) gem. Use the same patterns for both in-memory and database-backed models
+
+## How It Works
+
+- **Specifications** encapsulate business rules as objects. You can combine them using `.and`, `.or`, `.not`, and custom logic.
+- **ActiveRecord Integration**: Each specification can provide a `to_arel(table)` method, which returns an Arel predicate for SQL queries. The gem's `scoped_to` method applies these to ActiveRecord relations.
+- **ArelHelpers**: Use the provided helpers to build robust, DB-agnostic predicates (e.g., case-insensitive equality, LIKE, IN, BETWEEN, regex, etc.)
+- **In-memory Filtering**: The same specification can be used to filter Ruby objects with `satisfied_by?`.
 
 ## Setup & Installation
 
@@ -37,42 +47,177 @@ gem install alloverit-patterns-specification_active_record
 
 ## Usage Example
 
-Suppose you have a `Chilli` model and want to filter by color and origin using specifications:
+Suppose you have a `Chilli` model and want to filter by color and origin using specifications. With the available ArelHelpers, you can build your `to_arel` using Arel for robust, DB-agnostic SQL:
 
 ```ruby
 class HasColor < AllOverIt::Patterns::SpecificationActiveRecord::Specification
   def initialize(color)
-    @color = color.downcase
+    @color = color
   end
-  def to_scope
-    ->(rel) { rel.where('LOWER(colors) LIKE ?', "%#{@color}%") }
+
+  def to_arel(table)
+    AllOverIt::Patterns::SpecificationActiveRecord::ArelHelpers.equals_insensitive(table[:colors], @color)
   end
+
   def satisfied_by?(chilli)
-    chilli.colors.downcase.include?(@color)
+    chilli.color_list.map(&:downcase).include?(@color.downcase)
   end
 end
+```
 
+```ruby
 class HasOrigin < AllOverIt::Patterns::SpecificationActiveRecord::Specification
   def initialize(origin)
-    @origin = origin.downcase
+    @origin = origin
   end
-  def to_scope
-    ->(rel) { rel.where('LOWER(origin) = ?', @origin) }
+
+  def to_arel(table)
+    AllOverIt::Patterns::SpecificationActiveRecord::ArelHelpers.equals_insensitive(table[:origin], @origin)
   end
+
   def satisfied_by?(chilli)
-    chilli.origin.downcase == @origin
+    chilli.origin.downcase == @origin.downcase
   end
 end
+```
 
+```ruby
 # Compose specifications
 spec = HasColor.new('red').and(HasOrigin.new('mexico'))
 
-# ActiveRecord query
+# ActiveRecord query (assuming .scoped_to uses .to_arel internally)
 results = Chilli.scoped_to(spec)
 
 # In-memory filtering
 Chilli.all.select { |chilli| spec.satisfied_by?(chilli) }
 ```
+
+### Chaining and Composing Specifications
+
+Specifications can be chained and combined to express complex business logic in a highly readable way:
+
+```ruby
+# Find chillis that are red, from Mexico, and are mild OR have a certain shape
+spec = HasColor.new('red')
+         .and(HasOrigin.new('mexico'))
+         .and(HasHeatLevel.new('mild').or(HasShape.new('round')))
+
+results = Chilli.scoped_to(spec)
+
+# Negate a specification
+not_mexican = HasOrigin.new('mexico').not
+
+# Combine with other logic
+spec = HasColor.new('green').and(not_mexican)
+
+# Use with in-memory objects
+Chilli.all.select { |chilli| spec.satisfied_by?(chilli) }
+```
+
+You can also build specifications dynamically:
+
+```ruby
+spec = AllOverIt::Patterns::SpecificationActiveRecord::Specification.always_true
+spec = spec.and(HasColor.new('yellow')) if params[:color]
+spec = spec.and(HasOrigin.new('peru')) if params[:origin]
+results = Chilli.scoped_to(spec)
+```
+
+### Dynamic Specifications Example
+
+You can use the built-in `always_true` and `always_false` specifications to simplify dynamic query building:
+
+```ruby
+# Start with a specification that matches everything
+spec = AllOverIt::Patterns::SpecificationActiveRecord::Specification.always_true
+
+# Dynamically add filters
+spec = spec.and(HasColor.new(params[:color])) if params[:color].present?
+spec = spec.and(HasOrigin.new(params[:origin])) if params[:origin].present?
+
+# Or start with a specification that matches nothing
+spec = AllOverIt::Patterns::SpecificationActiveRecord::Specification.always_false
+
+# Compose as needed
+spec = spec.or(HasColor.new('red'))
+
+# Use with ActiveRecord
+results = Chilli.scoped_to(spec)
+
+# Use with in-memory objects
+Chilli.all.select { |chilli| spec.satisfied_by?(chilli) }
+```
+
+## ArelHelpers Overview
+
+ArelHelpers provides a suite of methods for building robust, portable SQL predicates. Here are some examples:
+
+- `like(column, value)`
+  ```ruby
+  ArelHelpers.like(table[:name], "%foo%") # => table.name LIKE '%foo%'
+  ```
+- `like_insensitive(column, value)`
+  ```ruby
+  ArelHelpers.like_insensitive(table[:name], "%foo%") # => LOWER(table.name) LIKE '%foo%'
+  ```
+- `not_like(column, value)`
+  ```ruby
+  ArelHelpers.not_like(table[:name], "%foo%") # => table.name NOT LIKE '%foo%'
+  ```
+- `not_like_insensitive(column, value)`
+  ```ruby
+  ArelHelpers.not_like_insensitive(table[:name], "%foo%") # => LOWER(table.name) NOT LIKE '%foo%'
+  ```
+- `equals(column, value)`
+  ```ruby
+  ArelHelpers.equals(table[:id], 1) # => table.id = 1
+  ```
+- `equals_insensitive(column, value)`
+  ```ruby
+  ArelHelpers.equals_insensitive(table[:name], "FOO") # => LOWER(table.name) = 'foo'
+  ```
+- `not_equal(column, value)`
+  ```ruby
+  ArelHelpers.not_equal(table[:id], 1) # => table.id != 1
+  ```
+- `not_equal_insensitive(column, value)`
+  ```ruby
+  ArelHelpers.not_equal_insensitive(table[:name], "FOO") # => LOWER(table.name) != 'foo'
+  ```
+- `in(column, values)`
+  ```ruby
+  ArelHelpers.in(table[:id], [1,2,3]) # => table.id IN (1,2,3)
+  ```
+- `not_in(column, values)`
+  ```ruby
+  ArelHelpers.not_in(table[:id], [1,2,3]) # => table.id NOT IN (1,2,3)
+  ```
+- `between(column, min, max)`
+  ```ruby
+  ArelHelpers.between(table[:id], 1, 10) # => table.id BETWEEN 1 AND 10
+  ```
+- `is_null(column)`
+  ```ruby
+  ArelHelpers.is_null(table[:deleted_at]) # => table.deleted_at IS NULL
+  ```
+- `is_not_null(column)`
+  ```ruby
+  ArelHelpers.is_not_null(table[:deleted_at]) # => table.deleted_at IS NOT NULL
+  ```
+- `modulo(column, value)`
+  ```ruby
+  ArelHelpers.modulo(table[:id], 2) # => MOD(table.id, 2)
+  ```
+- `regex(column, pattern)`
+  ```ruby
+  ArelHelpers.regex(table[:name], '^foo') # => table.name ~ '^foo' (if supported)
+  ```
+- `not_regex(column, pattern)`
+  ```ruby
+  ArelHelpers.not_regex(table[:name], '^foo') # => table.name !~ '^foo' (if supported)
+  ```
+
+See the [ArelHelpers documentation](lib/alloverit/patterns/specification_active_record/arel_helpers.rb) for full details and usage examples.
 
 ## Demos
 

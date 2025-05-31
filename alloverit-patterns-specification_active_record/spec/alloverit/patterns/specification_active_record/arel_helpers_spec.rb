@@ -26,15 +26,15 @@ RSpec.describe AllOverIt::Patterns::SpecificationActiveRecord::ArelHelpers do
     end
   end
 
-  describe ".does_not_like" do
+  describe ".not_like" do
     it "returns a NOT LIKE node" do
-      expect(described_class.does_not_like(arel_table[:name], "%foo%").to_sql).to eq("\"widgets\".\"name\" NOT LIKE '%foo%'")
+      expect(described_class.not_like(arel_table[:name], "%foo%").to_sql).to eq("\"widgets\".\"name\" NOT LIKE '%foo%'")
     end
   end
 
-  describe ".does_not_like_insensitive" do
+  describe ".not_like_insensitive" do
     it "returns a case-insensitive NOT LIKE node" do
-      expect(described_class.does_not_like_insensitive(arel_table[:name], "%FOO%").to_sql).to eq("LOWER(\"widgets\".\"name\") NOT LIKE '%foo%'")
+      expect(described_class.not_like_insensitive(arel_table[:name], "%FOO%").to_sql).to eq("LOWER(\"widgets\".\"name\") NOT LIKE '%foo%'")
     end
   end
 

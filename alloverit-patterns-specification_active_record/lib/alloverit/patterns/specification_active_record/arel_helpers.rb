@@ -39,7 +39,7 @@ module AllOverIt
         # @param column [Arel::Attributes::Attribute] The column to match against.
         # @param value [String] The value to not match (should include wildcards as needed).
         # @return [Arel::Nodes::DoesNotMatch] The Arel node for column NOT LIKE value.
-        def self.does_not_like(column, value)
+        def self.not_like(column, value)
           column.does_not_match(value)
         end
 
@@ -48,7 +48,7 @@ module AllOverIt
         # @param column [Arel::Attributes::Attribute] The column to match against.
         # @param value [String] The value to not match (should include wildcards as needed).
         # @return [Arel::Nodes::DoesNotMatch] The Arel node for column NOT ILIKE value.
-        def self.does_not_like_insensitive(column, value)
+        def self.not_like_insensitive(column, value)
           column.lower.does_not_match(value.downcase)
         end
 

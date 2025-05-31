@@ -1,0 +1,13 @@
+module AllOverIt
+  module Patterns
+    module SpecificationActiveRecord
+      class AlwaysTrueSpecificationActiveRecord
+        include SpecificationActiveRecord
+        def initialize: () -> AlwaysTrueSpecificationActiveRecord
+        def satisfied_by?: (untyped) -> bool
+        def to_arel: (untyped) -> untyped
+        def to_s: () -> String
+      end
+    end
+  end
+end

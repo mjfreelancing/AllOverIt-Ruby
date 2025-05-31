@@ -3,6 +3,21 @@ module AllOverIt
     module SpecificationActiveRecord
       VERSION: String
       # See the writing guide of rbs: https://github.com/ruby/rbs#guides
+
+      # Instance methods for all specifications
+      def satisfied_by?: (untyped) -> bool
+      def to_arel: (untyped) -> untyped
+      def to_scope: (untyped) -> untyped
+      def and: (SpecificationActiveRecord) -> AndSpecificationActiveRecord
+      def and_not: (SpecificationActiveRecord) -> AndNotSpecificationActiveRecord
+      def or: (SpecificationActiveRecord) -> OrSpecificationActiveRecord
+      def or_not: (SpecificationActiveRecord) -> OrNotSpecificationActiveRecord
+      def not: () -> NotSpecificationActiveRecord
+      def to_s: () -> String
+
+      # Class methods
+      def self.always_true: () -> AlwaysTrueSpecificationActiveRecord
+      def self.always_false: () -> AlwaysFalseSpecificationActiveRecord
     end
   end
 end

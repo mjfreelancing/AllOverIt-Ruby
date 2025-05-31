@@ -15,7 +15,7 @@ module Demo2
       end
 
       def to_arel(table)
-        ArelHelpers.equals_insensitive(table[:colors], "%#{@color}%")
+        ArelHelpers.equals_insensitive(table[:colors], @color)
       end
 
       def to_s
