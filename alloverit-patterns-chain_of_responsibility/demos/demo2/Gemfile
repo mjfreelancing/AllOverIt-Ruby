@@ -1,5 +1,0 @@
-# frozen_string_literal: true
-
-source "https://rubygems.org"
-
-gem "alloverit-patterns-chain_of_responsibility", "~> 1.0.0"
