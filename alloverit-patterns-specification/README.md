@@ -55,6 +55,9 @@ end
 spec = IsEven.new.and(IsPositive.new)
 
 [1, 2, 3, 4, -2].select { |n| spec.satisfied_by?(n) } # => [2, 4]
+
+# An alternative syntax
+[1, 2, 3, 4, -2].select(&spec.method(:satisfied_by?)) # => [2, 4]
 ```
 
 ## Advanced Usage and Combinators
