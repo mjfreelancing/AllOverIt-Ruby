@@ -16,8 +16,8 @@ module AllOverIt
       def to_s: () -> String
 
       # Class methods
-      def self.always_true: () -> AlwaysTrueSpecificationActiveRecord
-      def self.always_false: () -> AlwaysFalseSpecificationActiveRecord
+      def self.true: () -> TrueSpecificationActiveRecord
+      def self.false: () -> FalseSpecificationActiveRecord
     end
   end
 end

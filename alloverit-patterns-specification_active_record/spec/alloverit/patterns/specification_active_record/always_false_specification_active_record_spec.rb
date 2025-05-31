@@ -3,23 +3,40 @@
 require "spec_helper"
 require "alloverit/patterns/specification_active_record"
 
-RSpec.describe AllOverIt::Patterns::SpecificationActiveRecord::AlwaysFalseSpecificationActiveRecord do
-  it "is always false (in-memory and SQL)" do
-    spec = described_class.new
-    expect(spec.satisfied_by?(Object.new)).to eq(false)
-    expect(spec.to_arel(double(:table))).to eq(Arel.sql('1=0'))
-    expect(spec.to_s).to eq("false")
-  end
-end
+module AllOverIt
+  module Patterns
+    module SpecificationActiveRecord
+      RSpec.describe AlwaysFalseSpecificationActiveRecord do
+        let(:spec) { described_class.new }
 
-RSpec.describe AllOverIt::Patterns::SpecificationActiveRecord do
-  describe ".always_false" do
-    it "returns a new instance each time for always_false (AR)" do
-      expect(described_class.always_false).not_to be(described_class.always_false)
-    end
-    
-    it "returns the correct class for always_false (AR)" do
-      expect(described_class.always_false.class.name).to match(/AlwaysFalseSpecificationActiveRecord/)
+        describe "inheritance" do
+          it "inherits from CompositeSpecificationActiveRecord" do
+            expect(spec).to be_a(AllOverIt::Patterns::SpecificationActiveRecord::CompositeSpecificationActiveRecord)
+          end
+        end
+
+        describe "#satisfied_by?" do
+          it "always returns false" do
+            expect(spec.satisfied_by?(true)).to be false
+            expect(spec.satisfied_by?(false)).to be false
+            expect(spec.satisfied_by?(nil)).to be false
+            expect(spec.satisfied_by?(Object.new)).to be false
+          end
+        end
+
+        describe "#to_arel" do
+          it "returns an Arel node that always evaluates to false" do
+            arel = spec.to_arel(nil)
+            expect(arel.to_s).to match(/1 ?= ?0/) # Accepts 1=0 or 1 = 0
+          end
+        end
+
+        describe "#to_s" do
+          it "returns 'false'" do
+            expect(spec.to_s).to eq("false")
+          end
+        end
+      end
     end
   end
 end

@@ -125,17 +125,17 @@ results = Chilli.scoped_to(spec)
 
 ### Dynamic Specifications Example
 
-You can use the built-in `always_true` and `always_false` specifications to simplify dynamic query building:
+You can use the built-in `AlwaysTrueSpecificationActiveRecord` and `AlwaysFalseSpecificationActiveRecord` specifications to simplify dynamic query building:
 
 ```ruby
-# Start with a specification that matches everything
+# Start with a specification that matches everything - returns a new AlwaysTrueSpecificationActiveRecord
 spec = AllOverIt::Patterns::SpecificationActiveRecord::Specification.always_true
 
 # Dynamically add filters
 spec = spec.and(HasColor.new(params[:color])) if params[:color].present?
 spec = spec.and(HasOrigin.new(params[:origin])) if params[:origin].present?
 
-# Or start with a specification that matches nothing
+# Or start with a specification that matches nothing - returns a new AlwaysFalseSpecificationActiveRecord
 spec = AllOverIt::Patterns::SpecificationActiveRecord::Specification.always_false
 
 # Compose as needed
