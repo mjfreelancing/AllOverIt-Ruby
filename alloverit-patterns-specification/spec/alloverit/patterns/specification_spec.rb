@@ -109,6 +109,52 @@ module AllOverIt
             )
           end
         end
+
+        describe ".always_true" do
+          it "returns the same singleton instance for true" do
+            expect(Specification.always_true).to be(Specification.always_true)
+          end
+
+          it "returns the correct class for true" do
+            expect(Specification.always_true.class.name).to match(/AlwaysTrueSpecification/)
+          end
+
+          describe "#satisfied_by?" do
+            it "always returns true" do
+              expect(Specification.always_true.satisfied_by?(true)).to be true
+              expect(Specification.always_true.satisfied_by?(false)).to be true
+            end
+          end
+
+          describe "#to_s" do
+            it "returns 'true'" do
+              expect(Specification.always_true.to_s).to eq("true")
+            end
+          end
+        end
+
+        describe ".always_false" do
+          it "returns the same singleton instance for false" do
+            expect(Specification.always_false).to be(Specification.always_false)
+          end
+
+          it "returns the correct class for false" do
+            expect(Specification.always_false.class.name).to match(/AlwaysFalseSpecification/)
+          end
+
+          describe "#satisfied_by?" do
+            it "always returns false" do
+              expect(Specification.always_false.satisfied_by?(true)).to be false
+              expect(Specification.always_false.satisfied_by?(false)).to be false
+            end
+          end
+
+          describe "#to_s" do
+            it "returns 'false'" do
+              expect(Specification.always_false.to_s).to eq("false")
+            end
+          end
+        end
       end
     end
   end

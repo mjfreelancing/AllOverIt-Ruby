@@ -57,6 +57,53 @@ spec = IsEven.new.and(IsPositive.new)
 [1, 2, 3, 4, -2].select { |n| spec.satisfied_by?(n) } # => [2, 4]
 ```
 
+## Advanced Usage and Combinators
+
+You can combine specifications using `.and`, `.or`, and `.not`, and chain them to express complex logic:
+
+```ruby
+spec = IsEven.new.or(IsPositive.new.not)
+[1, 2, 3, 4, -2, -3].select { |n| spec.satisfied_by?(n) } # => [2, 4, -2, -3]
+
+# Chaining
+spec = IsEven.new.and(IsPositive.new).or(IsEven.new.not)
+
+# Negation
+spec = IsEven.new.not
+```
+
+### Dynamic Specification Building
+
+You can build specifications dynamically, for example, based on user input:
+
+```ruby
+spec = AllOverIt::Patterns::Specification.always_true
+spec = spec.and(IsEven.new) if params[:even]
+spec = spec.and(IsPositive.new) if params[:positive]
+```
+
+### Always True / Always False Specifications
+
+The base library provides `AlwaysTrueSpecification` and `AlwaysFalseSpecification` specifications for convenience:
+
+```ruby
+spec = AllOverIt::Patterns::Specification.always_true # A singleton instance
+spec = spec.and(IsEven.new) # Start with a match-all, then add conditions
+
+spec = AllOverIt::Patterns::Specification.always_false # A singleton instance
+spec = spec.or(IsPositive.new) # Start with match-none, then add conditions
+```
+
+## API Reference
+
+- `and(other_spec)` – Combine with another specification (logical AND)
+- `or(other_spec)` – Combine with another specification (logical OR)
+- `not` – Negate the specification
+- `satisfied_by?(candidate)` – Returns true if the candidate satisfies the specification
+- `to_s` – String representation of the specification
+- `.always_true` – Returns a specification that always matches
+- `.always_false` – Returns a specification that never matches
+
 ## Demos
 
 Demo applications are located in the `demos/` directory. To run a demo:
@@ -124,3 +171,7 @@ rake -T
 ## License
 
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+## Extending to ActiveRecord
+
+For database-backed models and SQL composition, see [AllOverIt::Patterns::SpecificationActiveRecord](../alloverit-patterns-specification_active_record/README.md).

@@ -2,7 +2,7 @@
 
 require_relative "../../lib/alloverit/patterns/specification/composite_specification"
 
-class FalseSpecification < ::AllOverIt::Patterns::Specification::CompositeSpecification
+class FalseSpecification < AllOverIt::Patterns::Specification::CompositeSpecification
   def satisfied_by?(_)
     false
   end

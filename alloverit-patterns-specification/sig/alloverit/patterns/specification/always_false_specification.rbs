@@ -1,0 +1,11 @@
+module AllOverIt
+  module Patterns
+    module Specification
+      class AlwaysFalseSpecification
+        def initialize: () -> AlwaysFalseSpecification
+        def satisfied_by?: (untyped) -> bool
+        def to_s: () -> String
+      end
+    end
+  end
+end
