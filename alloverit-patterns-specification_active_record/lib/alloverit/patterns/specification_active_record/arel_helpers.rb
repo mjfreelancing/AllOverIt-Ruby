@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Arel node reference: https://www.rubydoc.info/docs/rails/Arel/Nodes
+
 # Provides helper methods to simplify Arel node construction for common SQL operations.
 module AllOverIt
   module Patterns
@@ -32,6 +34,24 @@ module AllOverIt
           column.lower.matches(value.downcase)
         end
 
+        # Returns an Arel node representing a NOT LIKE operation (case-sensitive).
+        #
+        # @param column [Arel::Attributes::Attribute] The column to match against.
+        # @param value [String] The value to not match (should include wildcards as needed).
+        # @return [Arel::Nodes::DoesNotMatch] The Arel node for column NOT LIKE value.
+        def self.does_not_like(column, value)
+          column.does_not_match(value)
+        end
+
+        # Returns an Arel node representing a NOT ILIKE operation (case-insensitive).
+        #
+        # @param column [Arel::Attributes::Attribute] The column to match against.
+        # @param value [String] The value to not match (should include wildcards as needed).
+        # @return [Arel::Nodes::DoesNotMatch] The Arel node for column NOT ILIKE value.
+        def self.does_not_like_insensitive(column, value)
+          column.lower.does_not_match(value.downcase)
+        end
+
         # Returns an Arel node representing a case-sensitive equality comparison.
         #
         # @param column [Arel::Attributes::Attribute] The column to compare.
@@ -48,6 +68,24 @@ module AllOverIt
         # @return [Arel::Nodes::Equality] The Arel node for column.lower.eq(value.downcase).
         def self.equals_insensitive(column, value)
           column.lower.eq(value.downcase)
+        end
+
+        # Returns an Arel node representing a not-equal comparison (column != value).
+        #
+        # @param column [Arel::Attributes::Attribute] The column to compare.
+        # @param value [Object] The value to compare.
+        # @return [Arel::Nodes::NotEqual] The Arel node for column != value.
+        def self.not_equal(column, value)
+          column.not_eq(value)
+        end
+
+        # Returns an Arel node representing a case-insensitive not-equal comparison (column != value).
+        #
+        # @param column [Arel::Attributes::Attribute] The column to compare.
+        # @param value [Object] The value to compare (will be downcased).
+        # @return [Arel::Nodes::NotEqual] The Arel node for column.lower.not_eq(value).
+        def self.not_equal_insensitive(column, value)
+          column.lower.not_eq(value.downcase)
         end
 
         # Returns an Arel node representing a less-than comparison (column < value).
@@ -84,15 +122,6 @@ module AllOverIt
         # @return [Arel::Nodes::GreaterThanOrEqual] The Arel node for column >= value.
         def self.greater_than_or_equal(column, value)
           column.gteq(value)
-        end
-
-        # Returns an Arel node representing a not-equal comparison (column != value).
-        #
-        # @param column [Arel::Attributes::Attribute] The column to compare.
-        # @param value [Object] The value to compare.
-        # @return [Arel::Nodes::NotEqual] The Arel node for column != value.
-        def self.not_equal(column, value)
-          column.not_eq(value)
         end
 
         # Returns an Arel node representing an IN clause (column IN values).
@@ -155,114 +184,6 @@ module AllOverIt
         # @return [Arel::Nodes::NotRegexp] The Arel node for column !~ pattern.
         def self.not_regex(column, pattern)
           Arel::Nodes::NotRegexp.new(column, pattern)
-        end
-
-        # Returns an Arel node representing a NOT LIKE operation (case-sensitive).
-        #
-        # @param column [Arel::Attributes::Attribute] The column to match against.
-        # @param value [String] The value to not match (should include wildcards as needed).
-        # @return [Arel::Nodes::DoesNotMatch] The Arel node for column NOT LIKE value.
-        def self.does_not_match(column, value)
-          column.does_not_match(value)
-        end
-
-        # Returns an Arel node representing a NOT ILIKE operation (case-insensitive).
-        #
-        # @param column [Arel::Attributes::Attribute] The column to match against.
-        # @param value [String] The value to not match (should include wildcards as needed).
-        # @return [Arel::Nodes::DoesNotMatch] The Arel node for column NOT ILIKE value.
-        def self.does_not_match_insensitive(column, value)
-          column.lower.does_not_match(value.downcase)
-        end
-
-        # Returns an Arel node representing column = ALL(values).
-        #
-        # @param column [Arel::Attributes::Attribute] The column to compare.
-        # @param values [Array] The values for the ALL clause.
-        # @return [Arel::Nodes::Equality] The Arel node for column = ALL(values).
-        def self.equals_all(column, values)
-          column.eq_all(values)
-        end
-
-        # Returns an Arel node representing column != ALL(values).
-        #
-        # @param column [Arel::Attributes::Attribute] The column to compare.
-        # @param values [Array] The values for the ALL clause.
-        # @return [Arel::Nodes::NotEqual] The Arel node for column != ALL(values).
-        def self.not_equals_all(column, values)
-          column.not_eq_all(values)
-        end
-
-        # Returns an Arel node representing column = ANY(values).
-        #
-        # @param column [Arel::Attributes::Attribute] The column to compare.
-        # @param values [Array] The values for the ANY clause.
-        # @return [Arel::Nodes::Equality] The Arel node for column = ANY(values).
-        def self.equals_any(column, values)
-          column.eq_any(values)
-        end
-
-        # Returns an Arel node representing column != ANY(values).
-        #
-        # @param column [Arel::Attributes::Attribute] The column to compare.
-        # @param values [Array] The values for the ANY clause.
-        # @return [Arel::Nodes::NotEqual] The Arel node for column != ANY(values).
-        def self.not_equals_any(column, values)
-          column.not_eq_any(values)
-        end
-
-        # Returns an Arel node representing LIKE ALL(values).
-        #
-        # @param column [Arel::Attributes::Attribute] The column to match against.
-        # @param values [Array] The values for the ALL clause.
-        # @return [Arel::Nodes::Matches] The Arel node for column LIKE ALL(values).
-        def self.like_all(column, values)
-          column.matches_all(values)
-        end
-
-        # Returns an Arel node representing LIKE ANY(values).
-        #
-        # @param column [Arel::Attributes::Attribute] The column to match against.
-        # @param values [Array] The values for the ANY clause.
-        # @return [Arel::Nodes::Matches] The Arel node for column LIKE ANY(values).
-        def self.like_any(column, values)
-          column.matches_any(values)
-        end
-
-        # Returns an Arel node representing NOT LIKE ALL(values).
-        #
-        # @param column [Arel::Attributes::Attribute] The column to match against.
-        # @param values [Array] The values for the ALL clause.
-        # @return [Arel::Nodes::DoesNotMatch] The Arel node for column NOT LIKE ALL(values).
-        def self.does_not_match_all(column, values)
-          column.does_not_match_all(values)
-        end
-
-        # Returns an Arel node representing NOT LIKE ANY(values).
-        #
-        # @param column [Arel::Attributes::Attribute] The column to match against.
-        # @param values [Array] The values for the ANY clause.
-        # @return [Arel::Nodes::DoesNotMatch] The Arel node for column NOT LIKE ANY(values).
-        def self.does_not_match_any(column, values)
-          column.does_not_match_any(values)
-        end
-
-        # Returns an Arel node representing IN ANY(values).
-        #
-        # @param column [Arel::Attributes::Attribute] The column to check.
-        # @param values [Array] The values for the ANY clause.
-        # @return [Arel::Nodes::In] The Arel node for column IN ANY(values).
-        def self.in_any(column, values)
-          column.in_any(values)
-        end
-
-        # Returns an Arel node representing IN ALL(values).
-        #
-        # @param column [Arel::Attributes::Attribute] The column to check.
-        # @param values [Array] The values for the ALL clause.
-        # @return [Arel::Nodes::In] The Arel node for column IN ALL(values).
-        def self.in_all(column, values)
-          column.in_all(values)
         end
       end
     end
