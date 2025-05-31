@@ -20,6 +20,18 @@ RSpec.describe AllOverIt::Patterns::SpecificationActiveRecord::SpecificationScop
   let(:name_spec) { WidgetNameIsSpecification.new('foo') }
   let(:value_spec) { WidgetValueIsSpecification.new(2) }
 
+  # This test is only included to ensure that the instance method is included in the coverage report.
+  # Despite being called in other tests, it is not being capture by the coverage report.
+  it 'calls the instance method directly' do
+    dummy = Class.new do
+      include AllOverIt::Patterns::SpecificationActiveRecord::SpecificationScopeable
+    end.new
+
+    spec = double('spec')
+    expect(spec).to receive(:to_scope).with(dummy)
+    dummy.scoped_to(spec)
+  end
+
   describe '.scoped_to' do
     it 'returns only widgets with the specified name' do
       results = Widget.scoped_to(name_spec).pluck(:name)
