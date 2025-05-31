@@ -7,40 +7,52 @@ require_relative "../specification"
 module AllOverIt
   module Patterns
     module Specification
-      # Abstract base class for all concrete specifications.
+      # Abstract base class for all composite specifications. Provides class-level combinators for
+      # AND, AND NOT, OR, OR NOT, and NOT, allowing for flexible composition of specifications.
+      #
+      # Subclasses must implement the #satisfied_by? and #to_s methods.
       class CompositeSpecification
         include Specification
 
-        # Class-level method for combining two specifications using a logical AND. Returns a new
-        # AndSpecification object that represents the combined criteria.
+        # Combines two specifications using logical AND. Returns a new AndSpecification object.
+        #
+        # @param other [Specification] The other specification to combine with.
+        # @return [AndSpecification] The combined specification.
         def self.and(other)
           instance = ensure_instance(other)
           new.and(instance)
         end
 
-        # Class-level method for combining two specifications using a logical AND NOT. Returns a new
-        # AndNotSpecification object that represents the combined criteria.
+        # Combines two specifications using logical AND NOT. Returns a new AndNotSpecification object.
+        #
+        # @param other [Specification] The other specification to negate and combine with.
+        # @return [AndNotSpecification] The combined specification.
         def self.and_not(other)
           instance = ensure_instance(other)
           new.and_not(instance)
         end
 
-        # Class-level method for combining two specifications using a logical OR. Returns a new
-        # OrSpecification object that represents the combined criteria.
+        # Combines two specifications using logical OR. Returns a new OrSpecification object.
+        #
+        # @param other [Specification] The other specification to combine with.
+        # @return [OrSpecification] The combined specification.
         def self.or(other)
           instance = ensure_instance(other)
           new.or(instance)
         end
 
-        # Class-level method for combining two specifications using a logical OR NOT. Returns a new
-        # OrNotSpecification object that represents the combined criteria.
+        # Combines two specifications using logical OR NOT. Returns a new OrNotSpecification object.
+        #
+        # @param other [Specification] The other specification to negate and combine with.
+        # @return [OrNotSpecification] The combined specification.
         def self.or_not(other)
           instance = ensure_instance(other)
           new.or_not(instance)
         end
 
-        # Class-level method for negating a specification. Returns a new NotSpecification object that represents
-        # the negated criteria.
+        # Negates a specification. Returns a new NotSpecification object.
+        #
+        # @return [NotSpecification] The negated specification.
         def self.not
           new.not
         end
