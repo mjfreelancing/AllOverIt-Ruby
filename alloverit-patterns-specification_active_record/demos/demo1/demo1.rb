@@ -28,10 +28,12 @@ negated_spec = combined_spec.not
 
 # Use ActiveRecord query via the scoped_to concern
 results = Number.scoped_to(combined_spec)
+puts "SQL for combined_spec: #{results.to_sql}"
 puts "Numbers that are #{combined_spec}: #{results.pluck(:value).join(', ')}"
 puts
 
 negated_results = Number.scoped_to(negated_spec)
+puts "SQL for negated_spec: #{negated_results.to_sql}"
 puts "Numbers that are #{negated_spec}: #{negated_results.pluck(:value).join(', ')}"
 puts
 puts

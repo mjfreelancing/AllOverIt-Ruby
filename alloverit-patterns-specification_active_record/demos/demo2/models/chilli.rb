@@ -9,9 +9,11 @@ module Demo2
   module Models
     class Chilli < ActiveRecord::Base
       include AllOverIt::Patterns::SpecificationActiveRecord::SpecificationScopeable
+      
       def color_list
         colors.split(',')
       end
+
       def scoville_range
         "#{scoville_lower} - #{scoville_upper}"
       end

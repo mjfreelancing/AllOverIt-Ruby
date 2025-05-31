@@ -40,4 +40,23 @@ RSpec.describe AllOverIt::Patterns::SpecificationActiveRecord do
       expect(result).to be_an_instance_of(AllOverIt::Patterns::SpecificationActiveRecord::NotSpecificationActiveRecord)
     end
   end
+
+  describe "abstract method enforcement" do
+    # Use an anonymous class with only the module included to test abstract method enforcement in isolation.
+    # This ensures the test is not affected by any other class logic or inheritance, and directly exercises
+    # the module's abstract method requirements.
+    let(:base) { Class.new { include AllOverIt::Patterns::SpecificationActiveRecord }.new }
+
+    it "raises NotImplementedError for satisfied_by?" do
+      expect { base.satisfied_by?(:foo) }.to raise_error(NotImplementedError, /implement #satisfied_by\?/)
+    end
+
+    it "raises NotImplementedError for to_arel" do
+      expect { base.to_arel(double("table")) }.to raise_error(NotImplementedError, /implement #to_arel/)
+    end
+
+    it "raises NotImplementedError for to_s" do
+      expect { base.to_s }.to raise_error(NotImplementedError, /implement #to_s/)
+    end
+  end
 end

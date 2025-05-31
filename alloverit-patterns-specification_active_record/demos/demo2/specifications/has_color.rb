@@ -13,8 +13,8 @@ module Demo2
         chilli.color_list.map(&:downcase).include?(@color)
       end
 
-      def to_scope(rel)
-        rel.where("LOWER(colors) LIKE ?", "%#{@color}%")
+      def to_arel(table)
+        table[:colors].lower.matches("%#{@color}%")
       end
 
       def to_s

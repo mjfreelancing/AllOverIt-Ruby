@@ -9,8 +9,8 @@ module Demo2
         chilli.scoville_upper < 10_000
       end
 
-      def to_scope(rel)
-        rel.where("scoville_upper < ?", 10_000)
+      def to_arel(table)
+        table[:scoville_upper].lt(10_000)
       end
 
       def to_s

@@ -10,8 +10,8 @@ module Demo1
         candidate.value % 2 == 0
       end
 
-      def to_scope(relation)
-        relation.where('value % 2 = 0')
+      def to_arel(table)
+        Arel::Nodes::NamedFunction.new('MOD', [table[:value], 2]).eq(0)
       end
 
       def to_s

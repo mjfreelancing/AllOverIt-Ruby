@@ -17,6 +17,11 @@ class WidgetNameIsSpecification
     relation.where(name: @name)
   end
 
+  def to_arel(table)
+    # Example: for name spec, assume a 'name' column
+    table[:name].eq(@name)
+  end
+
   def to_s
     "name = #{@name}"
   end

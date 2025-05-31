@@ -14,8 +14,8 @@ module Demo1
         candidate.value < @threshold
       end
 
-      def to_scope(relation)
-        relation.where('value < ?', @threshold)
+      def to_arel(table)
+        table[:value].lt(@threshold)
       end
 
       def to_s

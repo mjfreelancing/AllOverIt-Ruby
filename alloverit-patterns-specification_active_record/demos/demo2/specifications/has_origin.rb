@@ -13,8 +13,8 @@ module Demo2
         chilli.origin.downcase == @origin
       end
 
-      def to_scope(rel)
-        rel.where("LOWER(origin) = ?", @origin)
+      def to_arel(table)
+        table[:origin].lower.eq(@origin)
       end
 
       def to_s

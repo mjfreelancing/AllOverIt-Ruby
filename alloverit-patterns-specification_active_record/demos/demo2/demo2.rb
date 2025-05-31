@@ -43,6 +43,7 @@ puts '------------------------------'
 
 # ActiveRecord query using scoped_to
 results = Chilli.scoped_to(combined_spec)
+puts "SQL for combined_spec: #{results.to_sql}"
 puts "Chillis that are #{combined_spec}:"
 
 results.each do |chilli|
@@ -53,6 +54,7 @@ puts
 puts
 
 results = Chilli.scoped_to(negated_spec)
+puts "SQL for negated_spec: #{results.to_sql}"
 puts "Chillis that are #{negated_spec}:"
 
 results.each do |chilli|

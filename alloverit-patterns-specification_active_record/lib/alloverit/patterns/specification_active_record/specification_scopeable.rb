@@ -9,13 +9,25 @@ module AllOverIt
         extend ActiveSupport::Concern
 
         class_methods do
-          # Allows: Model.scoped_to(specification)
+          # Applies a specification to the entire model as a scope.
+          #
+          # @param specification [SpecificationActiveRecord] The specification to apply.
+          # @return [ActiveRecord::Relation] The relation with the specification applied as a WHERE clause.
+          #
+          # @example
+          #   Model.scoped_to(specification)
           def scoped_to(specification)
             specification.to_scope(all)
           end
         end
 
-        # Allows: Model.where(...).scoped_to(specification)
+        # Applies a specification to the current relation as a scope.
+        #
+        # @param specification [SpecificationActiveRecord] The specification to apply.
+        # @return [ActiveRecord::Relation] The relation with the specification applied as a WHERE clause.
+        #
+        # @example
+        #   Model.where(...).scoped_to(specification)
         def scoped_to(specification)
           specification.to_scope(self)
         end
