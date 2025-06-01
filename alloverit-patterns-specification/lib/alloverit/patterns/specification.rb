@@ -56,12 +56,12 @@ module AllOverIt
 
       # Returns a singleton instance of a specification that is always true.
       def self.always_true
-        @true_spec ||= AlwaysTrueSpecification.new
+        @always_true ||= AlwaysTrueSpecification.new
       end
 
       # Returns a singleton instance of a specification that is always false.
       def self.always_false
-        @false_spec ||= AlwaysFalseSpecification.new
+        @always_false ||= AlwaysFalseSpecification.new
       end
 
       def to_s

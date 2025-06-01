@@ -5,10 +5,9 @@ require_relative "composite_specification"
 module AllOverIt
   module Patterns
     module Specification
+      # Combines two specifications using logical AND. The resulting specification is satisfied only if
+      # both the left and right specifications are satisfied by the candidate.
       class AndSpecification < CompositeSpecification
-        # Combines two specifications using logical AND. The resulting specification is satisfied only if
-        # both the left and right specifications are satisfied by the candidate.
-        #
         # @param left [Specification] The left-hand specification.
         # @param right [Specification] The right-hand specification.
         def initialize(left, right)

@@ -5,10 +5,9 @@ require_relative "composite_specification"
 module AllOverIt
   module Patterns
     module Specification
+      # Combines two specifications using logical OR NOT. The resulting specification is satisfied if
+      # the left specification is satisfied or the right specification is not satisfied by the candidate.
       class OrNotSpecification < CompositeSpecification
-        # Combines two specifications using logical OR NOT. The resulting specification is satisfied if
-        # the left specification is satisfied or the right specification is not satisfied by the candidate.
-        #
         # @param left [Specification] The left-hand specification.
         # @param right [Specification] The right-hand specification to negate.
         def initialize(left, right)

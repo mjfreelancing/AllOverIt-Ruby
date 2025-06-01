@@ -5,9 +5,9 @@ require_relative "composite_specification"
 module AllOverIt
   module Patterns
     module Specification
+      # Negates a specification. The resulting specification is satisfied only if the original
+      # specification is not satisfied by the candidate.
       class NotSpecification < CompositeSpecification
-        # Negates a specification. The resulting specification is satisfied only if the original specification is not satisfied by the candidate.
-        #
         # @param specification [Specification] The specification to negate.
         def initialize(specification)
           super()
