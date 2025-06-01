@@ -60,6 +60,50 @@ spec = IsEven.new.and(IsPositive.new)
 [1, 2, 3, 4, -2].select(&spec.method(:satisfied_by?)) # => [2, 4]
 ```
 
+## Specification vs CompositeSpecification: When and Why
+
+The library provides two ways to define your own specifications: by including the `Specification` module or by inheriting from `CompositeSpecification`. Understanding the difference is important for writing maintainable and composable business rules.
+
+### Including `Specification`
+
+- **Purpose:** Use this for simple, atomic specifications that represent a single rule.
+- **Behavior:** You must implement the `satisfied_by?` and `to_s` methods yourself.
+- **Combinators:** The combinator methods (`and`, `or`, `not`, etc.) are available because they are defined in the module. However, using them on a class that only includes `Specification` will return composite specification objects that expect their operands to behave like composites.
+- **Limitation:** If your concrete specification only includes `Specification` (and does not inherit from `CompositeSpecification`), it may not be recognized as a composite by type checks or by code that expects a composite. This can lead to subtle bugs or incompatibilities, especially if you want to further compose the result.
+
+### Inheriting from `CompositeSpecification`
+
+- **Purpose:** Use this when you want your specification to be composable with others using `.and`, `.or`, `.not`, etc.
+- **Behavior:** You still implement `satisfied_by?` and `to_s`, but you also inherit all combinator logic and are fully compatible with the library's composition features.
+- **Composability:** Only specifications that inherit from `CompositeSpecification` are guaranteed to be safely and robustly composable. This is the idiomatic and recommended approach for any specification you want to combine with others.
+
+### Why Can't Concretes Based on `Specification` Be Composed?
+
+While the combinator methods are technically available to any class including `Specification`, the resulting composite objects expect their operands to be compatible with the composite pattern (i.e., to inherit from `CompositeSpecification`). If you compose specifications that do not inherit from `CompositeSpecification`, you may encounter issues with type checks, further composition, or library features that rely on the composite structure.
+
+**In summary:**
+
+- Use `include Specification` for simple, standalone rules that won't be composed.
+- Use `CompositeSpecification` as a base class for any specification you want to combine with others.
+- For maximum flexibility and compatibility, prefer inheriting from `CompositeSpecification` for all your custom specifications.
+
+```ruby
+# Not composable (not recommended for combining)
+class IsEven
+  include AllOverIt::Patterns::Specification
+  def satisfied_by?(candidate)
+    candidate.even?
+  end
+end
+
+# Composable (recommended)
+class IsEven < AllOverIt::Patterns::Specification::CompositeSpecification
+  def satisfied_by?(candidate)
+    candidate.even?
+  end
+end
+```
+
 ## Advanced Usage and Combinators
 
 You can combine specifications using `.and`, `.or`, and `.not`, and chain them to express complex logic:
