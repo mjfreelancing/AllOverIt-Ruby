@@ -13,3 +13,6 @@ Style/StringLiterals:
 
 Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Enabled: false
