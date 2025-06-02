@@ -12,6 +12,7 @@ require "alloverit/utils"
 
 module AllOverIt
   module Patterns
+    # Provides ActiveRecord specification pattern support for AllOverIt.
     module SpecificationActiveRecord
       include AllOverIt::Patterns::Specification
 

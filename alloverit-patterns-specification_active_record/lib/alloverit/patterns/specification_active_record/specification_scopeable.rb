@@ -5,6 +5,7 @@ require "active_support/concern"
 module AllOverIt
   module Patterns
     module SpecificationActiveRecord
+      # Provides methods to apply a specification as a scope to ActiveRecord models and relations.
       module SpecificationScopeable
         extend ActiveSupport::Concern
 

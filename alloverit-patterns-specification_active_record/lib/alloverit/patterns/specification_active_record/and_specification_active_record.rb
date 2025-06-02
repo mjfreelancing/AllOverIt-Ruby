@@ -5,6 +5,7 @@ require_relative "composite_specification_active_record"
 module AllOverIt
   module Patterns
     module SpecificationActiveRecord
+      # A composite specification that is satisfied only if both left and right specifications are satisfied.
       class AndSpecificationActiveRecord < CompositeSpecificationActiveRecord
         # Initializes a new AND composite specification.
         #

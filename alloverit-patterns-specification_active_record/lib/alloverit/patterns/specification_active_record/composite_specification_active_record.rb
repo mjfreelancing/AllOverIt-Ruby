@@ -5,40 +5,51 @@ require_relative "../specification_active_record"
 module AllOverIt
   module Patterns
     module SpecificationActiveRecord
-      # Abstract base class for all AR specifications, providing class-level combinators.
+      # Abstract base class for all ActiveRecord specifications, providing class-level combinators for logical operations.
+      #
+      # This class is intended to be subclassed by concrete specifications and provides class-level methods for combining specifications.
       class CompositeSpecificationActiveRecord
         include SpecificationActiveRecord
 
-        # Class-level method for combining two specifications using a logical AND. Returns a new
-        # AndSpecification object that represents the combined criteria.
+        # Combines this specification with another using logical AND at the class level.
+        #
+        # @param other [SpecificationActiveRecord] The other specification to combine with.
+        # @return [AndSpecificationActiveRecord] A new AND composite specification.
         def self.and(other)
           instance = ensure_instance(other)
           new.and(instance)
         end
 
-        # Class-level method for combining two specifications using a logical AND NOT. Returns a new
-        # AndNotSpecification object that represents the combined criteria.
+        # Combines this specification with another using logical AND NOT at the class level.
+        #
+        # @param other [SpecificationActiveRecord] The other specification to negate and combine with.
+        # @return [AndNotSpecificationActiveRecord] A new AND NOT composite specification.
         def self.and_not(other)
           instance = ensure_instance(other)
           new.and_not(instance)
         end
 
-        # Class-level method for combining two specifications using a logical OR. Returns a new
-        # OrSpecification object that represents the combined criteria.
+        # Combines this specification with another using logical OR at the class level.
+        #
+        # @param other [SpecificationActiveRecord] The other specification to combine with.
+        # @return [OrSpecificationActiveRecord] A new OR composite specification.
         def self.or(other)
           instance = ensure_instance(other)
           new.or(instance)
         end
 
-        # Class-level method for combining two specifications using a logical OR NOT. Returns a new
-        # OrNotSpecification object that represents the combined criteria.
+        # Combines this specification with another using logical OR NOT at the class level.
+        #
+        # @param other [SpecificationActiveRecord] The other specification to negate and combine with.
+        # @return [OrNotSpecificationActiveRecord] A new OR NOT composite specification.
         def self.or_not(other)
           instance = ensure_instance(other)
           new.or_not(instance)
         end
 
-        # Class-level method for negating a specification. Returns a new NotSpecification object that represents
-        # the negated criteria.
+        # Returns the negation of this specification at the class level.
+        #
+        # @return [NotSpecificationActiveRecord] A new negated specification.
         def self.not
           new.not
         end
@@ -46,6 +57,10 @@ module AllOverIt
         class << self
           private
 
+          # Ensures the provided object is an instance of a specification and includes the SpecificationActiveRecord module.
+          #
+          # @param other [Object] The object to check.
+          # @return [SpecificationActiveRecord] The validated specification instance.
           def ensure_instance(other)
             instance = Utils.as_instance(other)
 

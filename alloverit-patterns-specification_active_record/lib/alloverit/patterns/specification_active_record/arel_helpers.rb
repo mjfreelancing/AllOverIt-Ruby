@@ -6,6 +6,7 @@
 module AllOverIt
   module Patterns
     module SpecificationActiveRecord
+      # Provides helper methods for constructing Arel nodes for common SQL operations.
       module ArelHelpers
         # Returns an Arel node representing a modulo operation (MOD(column, value)).
         #
