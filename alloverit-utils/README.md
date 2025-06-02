@@ -13,26 +13,26 @@ You can find the source at `lib/alloverit/utils`.
 
 To set up all dependencies for every gem in this repository, run the following from the root:
 
-```zsh
+```bash
 ruby setup_all.rb
 ```
 
 Alternatively, you can set up just this gem by running:
 
-```zsh
+```bash
 cd alloverit-utils
 bin/setup
 ```
 
 Add the gem to your application's Gemfile:
 
-```zsh
+```bash
 bundle add alloverit-utils
 ```
 
 Or install it manually:
 
-```zsh
+```bash
 gem install alloverit-utils
 ```
 
@@ -119,7 +119,7 @@ The following Rake tasks are available for development and testing:
 
 You can list all available tasks by running:
 
-```zsh
+```bash
 rake -T
 ```
 

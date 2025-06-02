@@ -13,26 +13,26 @@ This gem provides a robust, extensible implementation of the Chain of Responsibi
 
 To set up all dependencies for every gem in this repository, run the following from the root:
 
-```zsh
+```bash
 ruby setup_all.rb
 ```
 
 Alternatively, you can set up just this gem by running:
 
-```zsh
+```bash
 cd alloverit-patterns-chain_of_responsibility
 bin/setup
 ```
 
 Add the gem to your application's Gemfile:
 
-```zsh
+```bash
 bundle add alloverit-patterns-chain_of_responsibility
 ```
 
 Or install it manually:
 
-```zsh
+```bash
 gem install alloverit-patterns-chain_of_responsibility
 ```
 
@@ -128,14 +128,14 @@ first_handler.next_handler(MediumSeverityHandler.new)
 
 Demo applications are located in the `demos/` directory. To run a demo:
 
-```zsh
+```bash
 cd demos/demo1
 ruby demo1.rb
 ```
 
 or
 
-```zsh
+```bash
 cd demos/demo2
 ruby demo2.rb
 ```
@@ -144,7 +144,7 @@ ruby demo2.rb
 
 To run tests for this gem only:
 
-```zsh
+```bash
 cd alloverit-patterns-chain_of_responsibility
 bundle exec rake spec
 ```
@@ -184,7 +184,7 @@ The following Rake tasks are available for development and testing:
 
 You can list all available tasks by running:
 
-```zsh
+```bash
 rake -T
 ```
 

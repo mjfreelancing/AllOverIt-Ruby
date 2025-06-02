@@ -126,7 +126,7 @@ The following Rake tasks are available for development and testing:
 
 You can list all available tasks by running:
 
-```zsh
+```bash
 rake -T
 ```
 
