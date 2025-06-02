@@ -156,17 +156,21 @@ module AllOverIt
         #
         # @param column [Arel::Attributes::Attribute] The column to check for NULL.
         # @return [Arel::Nodes::Equality] The Arel node for column IS NULL.
+        # rubocop:disable Naming/PredicateName
         def self.is_null(column)
           column.eq(nil)
         end
+        # rubocop:enable Naming/PredicateName
 
         # Returns an Arel node representing an IS NOT NULL check.
         #
         # @param column [Arel::Attributes::Attribute] The column to check for NOT NULL.
         # @return [Arel::Nodes::NotEqual] The Arel node for column IS NOT NULL.
+        # rubocop:disable Naming/PredicateName
         def self.is_not_null(column)
           column.not_eq(nil)
         end
+        # rubocop:enable Naming/PredicateName
 
         # Returns an Arel node representing a regular expression match (column ~ pattern).
         #
