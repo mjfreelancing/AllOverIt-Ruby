@@ -6,11 +6,11 @@ source "https://rubygems.org"
 gemspec
 
 group :development, :test do
+  gem "database_cleaner-active_record"
   gem "rake", "~> 13.0"
   gem "rspec", "~> 3.0"
   gem "rubocop", "~> 1.21"
   gem "simplecov", require: false
-  gem "database_cleaner-active_record"
   gem "sqlite3"
 end
 
