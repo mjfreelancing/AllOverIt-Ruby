@@ -2,7 +2,6 @@
 
 # Arel node reference: https://www.rubydoc.info/docs/rails/Arel/Nodes
 
-# Provides helper methods to simplify Arel node construction for common SQL operations.
 module AllOverIt
   module Patterns
     module SpecificationActiveRecord
