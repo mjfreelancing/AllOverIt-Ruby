@@ -2,9 +2,12 @@
 
 module AllOverIt
   module Utils
+    # Provides assertion helpers for utility methods.
     module Check
-      # This class method asserts that all argument values are not nil. An ArgumentError will be raised
-      # for the first value that is nil.
+      # Asserts that all provided keyword arguments are not nil. Raises ArgumentError for the first nil value.
+      #
+      # @param args [Hash] The keyword arguments to check for nil values.
+      # @raise [ArgumentError] If any value is nil.
       def self.not_nil(**args)
         args.each do |name, value|
           raise ArgumentError, "#{name} cannot be nil" if value.nil?
