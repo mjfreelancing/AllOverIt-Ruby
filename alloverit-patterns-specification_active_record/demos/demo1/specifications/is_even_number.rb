@@ -6,9 +6,8 @@ require "alloverit/patterns/specification_active_record/arel_helpers"
 module Demo1
   module Specifications
     class IsEvenNumber < AllOverIt::Patterns::SpecificationActiveRecord::CompositeSpecificationActiveRecord
-
       def satisfied_by?(candidate)
-        candidate.value % 2 == 0
+        candidate.value.even?
       end
 
       def to_arel(table)
@@ -16,7 +15,7 @@ module Demo1
       end
 
       def to_s
-        'is even'
+        "is even"
       end
     end
   end

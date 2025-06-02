@@ -1,5 +1,5 @@
-require 'active_record'
-require 'sqlite3'
+require "active_record"
+require "sqlite3"
 require_relative "../specifications/has_color"
 require_relative "../specifications/has_origin"
 require_relative "../specifications/is_mild"
@@ -9,9 +9,9 @@ module Demo2
   module Models
     class Chilli < ActiveRecord::Base
       include AllOverIt::Patterns::SpecificationActiveRecord::SpecificationScopeable
-      
+
       def color_list
-        colors.split(',')
+        colors.split(",")
       end
 
       def scoville_range

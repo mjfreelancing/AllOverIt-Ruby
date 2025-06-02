@@ -31,9 +31,9 @@ module AllOverIt
         describe "#initialize" do
           context "when other is not a valid SpecificationActiveRecord" do
             it "raises ArgumentError" do
-              expect {
+              expect do
                 foo_spec.and_not(BadSpecificationActiveRecord.new)
-              }.to raise_error(
+              end.to raise_error(
                 ArgumentError,
                 "Expected #{BadSpecificationActiveRecord.name} to include #{SpecificationActiveRecord.name}"
               )
@@ -97,39 +97,39 @@ module AllOverIt
           end
         end
 
-        describe '#to_arel' do
+        describe "#to_arel" do
           let(:arel_table) { Widget.arel_table }
-          it 'returns an AND NOT Arel node for two specs' do
+          it "returns an AND NOT Arel node for two specs" do
             spec = foo_spec.and_not(value_2_spec)
             arel = spec.to_arel(arel_table)
 
-            expect(arel.to_sql).to include('AND')
-            expect(arel.to_sql).to include('NOT')
-            expect(arel.to_sql).to include('foo')
-            expect(arel.to_sql).to include('2')
+            expect(arel.to_sql).to include("AND")
+            expect(arel.to_sql).to include("NOT")
+            expect(arel.to_sql).to include("foo")
+            expect(arel.to_sql).to include("2")
           end
-          it 'returns an AND NOT Arel node for different specs' do
+          it "returns an AND NOT Arel node for different specs" do
             spec = value_1_spec.and_not(bar_spec)
             arel = spec.to_arel(arel_table)
 
-            expect(arel.to_sql).to include('AND')
-            expect(arel.to_sql).to include('NOT')
-            expect(arel.to_sql).to include('1')
-            expect(arel.to_sql).to include('bar')
+            expect(arel.to_sql).to include("AND")
+            expect(arel.to_sql).to include("NOT")
+            expect(arel.to_sql).to include("1")
+            expect(arel.to_sql).to include("bar")
           end
         end
 
-        describe 'deep and nested composition' do
-          it 'handles AND NOT nested with OR and NOT' do
+        describe "deep and nested composition" do
+          it "handles AND NOT nested with OR and NOT" do
             # (name = foo AND NOT (value = 2 OR NOT name = bar))
             nested_spec = foo_spec.and_not(value_2_spec.or(bar_spec.not))
             result = nested_spec.to_scope(Widget.all)
 
             # Should include widgets named 'foo' and not value 2 or not name 'bar'
-            expect(result.pluck(:name)).to all(eq('foo'))
+            expect(result.pluck(:name)).to all(eq("foo"))
             expect(result.pluck(:value)).not_to include(2)
           end
-          it 'handles multiple levels of nesting' do
+          it "handles multiple levels of nesting" do
             # ((name = foo AND NOT value = 2) OR (value = 1 AND NOT name = bar))
             left = foo_spec.and_not(value_2_spec)
             right = value_1_spec.and_not(bar_spec)
@@ -138,27 +138,27 @@ module AllOverIt
 
             expect(result).to be_a(ActiveRecord::Relation)
             # Should include widgets named 'foo' (not value 2) or value 1 (not name bar)
-            expect(result.pluck(:name)).to include('foo')
+            expect(result.pluck(:name)).to include("foo")
             expect(result.pluck(:value)).to include(1)
           end
         end
 
-        describe 'invalid input to all combinators' do
+        describe "invalid input to all combinators" do
           let(:bad_spec) { Class.new.new }
 
-          it 'raises ArgumentError for and' do
+          it "raises ArgumentError for and" do
             expect { foo_spec.and(bad_spec) }.to raise_error(ArgumentError)
           end
 
-          it 'raises ArgumentError for and_not' do
+          it "raises ArgumentError for and_not" do
             expect { foo_spec.and_not(bad_spec) }.to raise_error(ArgumentError)
           end
 
-          it 'raises ArgumentError for or' do
+          it "raises ArgumentError for or" do
             expect { foo_spec.or(bad_spec) }.to raise_error(ArgumentError)
           end
 
-          it 'raises ArgumentError for or_not' do
+          it "raises ArgumentError for or_not" do
             expect { foo_spec.or_not(bad_spec) }.to raise_error(ArgumentError)
           end
         end

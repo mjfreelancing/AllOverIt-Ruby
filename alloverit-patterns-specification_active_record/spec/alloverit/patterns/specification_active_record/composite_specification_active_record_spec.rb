@@ -5,9 +5,9 @@ module AllOverIt
     module SpecificationActiveRecord
       RSpec.describe CompositeSpecificationActiveRecord do
         class DummySpec < described_class
-          def satisfied_by?(candidate); true; end
-          def to_arel(table); table[:id].eq(1); end
-          def to_s; "dummy"; end
+          def satisfied_by?(_candidate) = true
+          def to_arel(table) = table[:id].eq(1)
+          def to_s = "dummy"
         end
 
         let(:spec) { DummySpec.new }

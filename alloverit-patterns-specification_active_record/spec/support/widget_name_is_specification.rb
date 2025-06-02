@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../../lib/alloverit/patterns/specification_active_record'
+require_relative "../../lib/alloverit/patterns/specification_active_record"
 
 class WidgetNameIsSpecification
   include AllOverIt::Patterns::SpecificationActiveRecord

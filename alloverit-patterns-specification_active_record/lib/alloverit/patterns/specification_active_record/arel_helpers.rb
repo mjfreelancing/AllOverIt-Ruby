@@ -13,7 +13,7 @@ module AllOverIt
         # @param value [Integer] The divisor.
         # @return [Arel::Nodes::NamedFunction] The Arel node for MOD(column, value).
         def self.modulo(column, value)
-          Arel::Nodes::NamedFunction.new('MOD', [column, value])
+          Arel::Nodes::NamedFunction.new("MOD", [column, value])
         end
 
         # Returns an Arel node representing a case-sensitive SQL LIKE operation.
@@ -167,7 +167,7 @@ module AllOverIt
         def self.is_not_null(column)
           column.not_eq(nil)
         end
-        
+
         # Returns an Arel node representing a regular expression match (column ~ pattern).
         #
         # @param column [Arel::Attributes::Attribute] The column to match.

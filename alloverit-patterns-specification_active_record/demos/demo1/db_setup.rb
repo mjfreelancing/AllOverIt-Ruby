@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require 'active_record'
-require 'sqlite3'
+require "active_record"
+require "sqlite3"
 require_relative "models/number"
 
 Number = Demo1::Models::Number
 
 # Setup in-memory database
 ActiveRecord::Base.establish_connection(
-  adapter: 'sqlite3',
-  database: ':memory:'
+  adapter: "sqlite3",
+  database: ":memory:"
 )
 
 # Define schema

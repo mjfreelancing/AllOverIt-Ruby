@@ -9,7 +9,7 @@ module AllOverIt
         it "has a version number" do
           expect(AllOverIt::Patterns::SpecificationActiveRecord::VERSION).not_to be nil
         end
-      end     
+      end
     end
   end
 end

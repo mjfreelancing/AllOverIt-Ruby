@@ -6,7 +6,6 @@ require "alloverit/patterns/specification_active_record/arel_helpers"
 module Demo1
   module Specifications
     class IsLessThan < AllOverIt::Patterns::SpecificationActiveRecord::CompositeSpecificationActiveRecord
-
       def initialize(threshold)
         @threshold = threshold
       end

@@ -25,19 +25,22 @@ module AllOverIt
 
         describe ".like_insensitive" do
           it "returns a case-insensitive LIKE node" do
-            expect(described_class.like_insensitive(arel_table[:name], "%FOO%").to_sql).to eq("LOWER(\"widgets\".\"name\") LIKE '%foo%'")
+            expect(described_class.like_insensitive(arel_table[:name],
+                                                    "%FOO%").to_sql).to eq("LOWER(\"widgets\".\"name\") LIKE '%foo%'")
           end
         end
 
         describe ".not_like" do
           it "returns a NOT LIKE node" do
-            expect(described_class.not_like(arel_table[:name], "%foo%").to_sql).to eq("\"widgets\".\"name\" NOT LIKE '%foo%'")
+            expect(described_class.not_like(arel_table[:name],
+                                            "%foo%").to_sql).to eq("\"widgets\".\"name\" NOT LIKE '%foo%'")
           end
         end
 
         describe ".not_like_insensitive" do
           it "returns a case-insensitive NOT LIKE node" do
-            expect(described_class.not_like_insensitive(arel_table[:name], "%FOO%").to_sql).to eq("LOWER(\"widgets\".\"name\") NOT LIKE '%foo%'")
+            expect(described_class.not_like_insensitive(arel_table[:name],
+                                                        "%FOO%").to_sql).to eq("LOWER(\"widgets\".\"name\") NOT LIKE '%foo%'")
           end
         end
 
@@ -53,7 +56,8 @@ module AllOverIt
 
         describe ".equals_insensitive" do
           it "returns a case-insensitive equality node" do
-            expect(described_class.equals_insensitive(arel_table[:name], "FOO").to_sql).to eq("LOWER(\"widgets\".\"name\") = 'foo'")
+            expect(described_class.equals_insensitive(arel_table[:name],
+                                                      "FOO").to_sql).to eq("LOWER(\"widgets\".\"name\") = 'foo'")
           end
         end
 
@@ -65,7 +69,8 @@ module AllOverIt
 
         describe ".not_equal_insensitive" do
           it "returns a case-insensitive not-equality node" do
-            expect(described_class.not_equal_insensitive(arel_table[:name], "FOO").to_sql).to eq("LOWER(\"widgets\".\"name\") != 'foo'")
+            expect(described_class.not_equal_insensitive(arel_table[:name],
+                                                         "FOO").to_sql).to eq("LOWER(\"widgets\".\"name\") != 'foo'")
           end
         end
 
@@ -95,13 +100,13 @@ module AllOverIt
 
         describe ".in" do
           it "returns an IN node" do
-            expect(described_class.in(arel_table[:value], [1,2]).to_sql).to eq('"widgets"."value" IN (1, 2)')
+            expect(described_class.in(arel_table[:value], [1, 2]).to_sql).to eq('"widgets"."value" IN (1, 2)')
           end
         end
 
         describe ".not_in" do
           it "returns a NOT IN node" do
-            expect(described_class.not_in(arel_table[:value], [1,2]).to_sql).to eq('"widgets"."value" NOT IN (1, 2)')
+            expect(described_class.not_in(arel_table[:value], [1, 2]).to_sql).to eq('"widgets"."value" NOT IN (1, 2)')
           end
         end
 

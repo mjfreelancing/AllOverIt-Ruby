@@ -10,13 +10,13 @@ group :development, :test do
   gem "rspec", "~> 3.0"
   gem "rubocop", "~> 1.21"
   gem "simplecov", require: false
-  gem "sqlite3"
   gem "database_cleaner-active_record"
+  gem "sqlite3"
 end
 
 gem "activerecord"
 
 # For local development, this tells Bundler to use your local copy of alloverit-utils and alloverit-patterns-specification.
 # When the gem is published, the Gemfile is not included in the published gem — only the gemspec matters for consumers.
-gem "alloverit-utils", path: "../alloverit-utils"
 gem "alloverit-patterns-specification", path: "../alloverit-patterns-specification"
+gem "alloverit-utils", path: "../alloverit-utils"

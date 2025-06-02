@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require 'simplecov'
+require "simplecov"
 SimpleCov.start do
-  track_files 'lib/**/*.rb'
-  add_filter '/spec/'
+  track_files "lib/**/*.rb"
+  add_filter "/spec/"
 end
 
 require_relative "../lib/alloverit/patterns/specification_active_record"
-require_relative 'support/widget'
-require 'active_record'
-require 'database_cleaner/active_record'
+require_relative "support/widget"
+require "active_record"
+require "database_cleaner/active_record"
 
 ActiveRecord::Base.establish_connection(
-  adapter: 'sqlite3',
-  database: ':memory:'
+  adapter: "sqlite3",
+  database: ":memory:"
 )
 
 ActiveRecord::Schema.define do

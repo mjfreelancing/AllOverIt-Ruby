@@ -41,4 +41,3 @@ task :coverage do
     puts "Coverage report not found. Run tests to generate it."
   end
 end
-
