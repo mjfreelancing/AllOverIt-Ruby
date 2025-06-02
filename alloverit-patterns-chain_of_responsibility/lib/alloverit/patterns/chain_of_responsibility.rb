@@ -4,6 +4,7 @@ require "alloverit/utils"
 
 module AllOverIt
   module Patterns
+    # Provides the Chain of Responsibility pattern for request handling.
     module ChainOfResponsibility
       # This class method will compose a variable number of handlers into a linked list. Each handler can be a
       # class type that includes the ChainOfResponsibilityHandler module, or a previously initialized instance.
